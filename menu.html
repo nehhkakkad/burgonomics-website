@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="description" content="Burgonomics: Pure ingredients. Fresh buns. The evolution of vegetarian gastronomy." />
+    <script src="./js/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Burgonomics - Menu</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+      /* Scroll Snapping specifically for the menu pages */
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden; /* We will scroll on the container instead */
+        background-color: var(--main-background);
+      }
+
+      #app {
+        height: 100vh;
+      }
+
+      .menu-scroll-container {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: row;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+      }
+      
+      .menu-scroll-container::-webkit-scrollbar {
+        display: none;
+      }
+
+      .menu-page-snap {
+        height: 100vh;
+        scroll-snap-align: start;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .menu-page-img {
+        height: 100vh;
+        width: auto;
+        object-fit: contain; 
+        opacity: 0;
+        transform: scale(0.95);
+        transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .menu-page-img.visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      /* Horizontal Scroll Indicator */
+      .scroll-indicator {
+        position: absolute;
+        bottom: 2rem;
+        right: 2rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--light-olive);
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        animation: slide 2s infinite;
+        opacity: 0.8;
+        z-index: 50;
+      }
+      
+      .scroll-indicator svg {
+        width: 20px;
+        height: 20px;
+        stroke: currentColor;
+        stroke-width: 2;
+        fill: none;
+        transform: rotate(-90deg); /* Point right */
+      }
+
+      @keyframes slide {
+        0%, 20%, 50%, 80%, 100% {
+          transform: translateX(0);
+        }
+        40% {
+          transform: translateX(15px);
+        }
+        60% {
+          transform: translateX(7px);
+        }
+      }
+      
+      /* The footer will just be the last snap point horizontally */
+      .footer-snap {
+        scroll-snap-align: start;
+        min-width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        background: var(--main-background);
+        flex-shrink: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVIGATION -->
+    <nav class="top-nav">
+      <div class="nav-left">
+        <a href="./">Burgonomics</a>
+        <a href="./menu.html">Menu</a>
+        <a href="./locations.html">Locations</a>
+      </div>
+      <a href="./" class="nav-logo">
+        <img src="./logo.jpg" alt="Burgonomics Logo" />
+      </a>
+      <div class="nav-right">
+        <a href="./franchise.html">Franchise</a>
+        <a href="./about.html">About Us</a>
+        <a href="https://www.instagram.com/burgonomicsindia?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="nav-social" style="display:flex;align-items:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+      </div>
+      <div class="mobile-menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+
+    <div class="mobile-nav-overlay">
+      <div class="mobile-nav-content">
+        <a href="./">Burgonomics</a>
+        <a href="./menu.html">Menu</a>
+        <a href="./locations.html">Locations</a>
+        <a href="./franchise.html">Franchise</a>
+        <a href="./about.html">About Us</a>
+      </div>
+    </div>
+
+    <div id="app">
+      <div class="menu-scroll-container">
+        
+        <!-- PAGE 1 -->
+        <div class="menu-page-snap">
+          <img class="menu-page-img" src="./menu-pages/menu-01.jpg" alt="Menu Page 1" />
+          <div class="scroll-indicator">
+            <span>Scroll</span>
+            <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+          </div>
+        </div>
+        <!-- PAGE 2 -->
+        <div class="menu-page-snap">
+          <img class="menu-page-img" src="./menu-pages/menu-02.jpg" alt="Menu Page 2" />
+        </div>
+        <!-- PAGE 3 -->
+        <div class="menu-page-snap">
+          <img class="menu-page-img" src="./menu-pages/menu-03.jpg" alt="Menu Page 3" />
+        </div>
+        <!-- PAGE 4 -->
+        <div class="menu-page-snap">
+          <img class="menu-page-img" src="./menu-pages/menu-04.jpg" alt="Menu Page 4" />
+        </div>
+        <!-- PAGE 5 -->
+        <div class="menu-page-snap">
+          <img class="menu-page-img" src="./menu-pages/menu-05.jpg" alt="Menu Page 5" />
+        </div>
+        <!-- PAGE 6 -->
+        <div class="menu-page-snap">
+          <img class="menu-page-img" src="./menu-pages/menu-06.jpg" alt="Menu Page 6" />
+        </div>
+        <!-- PAGE 7 -->
+        <div class="menu-page-snap">
+          <img class="menu-page-img" src="./menu-pages/menu-07.jpg" alt="Menu Page 7" />
+        </div>
+        <!-- PAGE 8 -->
+        <div class="menu-page-snap">
+          <img class="menu-page-img" src="./menu-pages/menu-08.jpg" alt="Menu Page 8" />
+        </div>
+        <!-- FOOTER -->
+        <div class="footer-snap">
+          <div style="flex-grow: 1; width: 100vw; overflow: hidden;">
+            <img src="./menu-pages/menu-outro.jpg" alt="Menu Outro" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+          </div>
+          <footer class="site-footer">
+            <div class="container footer-grid">
+              <div class="footer-brand">
+                <h2>BURGONOMICS</h2>
+                <p>The House of Damn Good Burgers.</p>
+              </div>
+              <div class="footer-links">
+                <a href="./">Home</a>
+                <a href="./menu.html">Menu</a>
+                <a href="./locations.html">Locations</a>
+                <a href="./franchise.html">Franchise</a>
+                <a href="./about.html">About Us</a>
+                <a href="https://www.instagram.com/burgonomicsindia?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">Instagram</a>
+              </div>
+            </div>
+            <div class="footer-bottom">
+              <p>&copy; 2026 Burgonomics. All rights reserved. <span style="color: var(--brand-olive);">| Powered by Burgonomics</span></p>
+              <div class="legal-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      // Intersection Observer for fade-in animations as you scroll snap
+      document.addEventListener("DOMContentLoaded", () => {
+        const images = document.querySelectorAll('.menu-page-img');
+        
+        const observerOptions = {
+          root: document.querySelector('.menu-scroll-container'),
+          rootMargin: '0px',
+          threshold: 0.5 // Trigger when 50% of the image is in view
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            } else {
+              // Optional: remove visible class if you want them to fade out when scrolling away
+              // entry.target.classList.remove('visible'); 
+            }
+          });
+        }, observerOptions);
+
+        images.forEach(img => {
+          observer.observe(img);
+        });
+
+        // Vertical scroll to horizontal slide translation
+        const scrollContainer = document.querySelector('.menu-scroll-container');
+        let isScrolling = false;
+
+        scrollContainer.addEventListener('wheel', (evt) => {
+          // If the user is scrolling vertically
+          if (Math.abs(evt.deltaY) > Math.abs(evt.deltaX)) {
+            evt.preventDefault();
+            
+            if (isScrolling) return;
+            
+            // Scroll down = positive deltaY -> Move Right
+            // Scroll up = negative deltaY -> Move Left
+            const direction = evt.deltaY > 0 ? 1 : -1;
+            
+            scrollContainer.scrollBy({
+              left: direction * window.innerWidth,
+              behavior: 'smooth'
+            });
+            
+            // Throttle the scroll to ensure one slide per wheel action
+            // This prevents rapid spinning and aligns with the snapping
+            isScrolling = true;
+            setTimeout(() => {
+              isScrolling = false;
+            }, 700); 
+          }
+        }, { passive: false });
+      });
+    </script>
+  </body>
+</html>

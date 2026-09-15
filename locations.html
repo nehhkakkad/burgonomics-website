@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="description" content="Burgonomics: Pure ingredients. Fresh buns. The evolution of vegetarian gastronomy." />
+    <script src="./js/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Burgonomics - Locations</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <!-- NAVIGATION -->
+    <nav class="top-nav">
+      <div class="nav-left">
+        <a href="./">Burgonomics</a>
+        <a href="./menu.html">Menu</a>
+        <a href="./locations.html" class="active">Locations</a>
+      </div>
+      <a href="./" class="nav-logo">
+        <img src="./logo.jpg" alt="Burgonomics Logo" />
+      </a>
+      <div class="nav-right">
+        <a href="./franchise.html">Franchise</a>
+        <a href="./about.html">About Us</a>
+        <a href="https://www.instagram.com/burgonomicsindia?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="nav-social" style="display:flex;align-items:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+      </div>
+      <div class="mobile-menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+
+    <div class="mobile-nav-overlay">
+      <div class="mobile-nav-content">
+        <a href="./">Burgonomics</a>
+        <a href="./menu.html">Menu</a>
+        <a href="./locations.html">Locations</a>
+        <a href="./franchise.html">Franchise</a>
+        <a href="./about.html">About Us</a>
+      </div>
+    </div>
+
+    <div id="app">
+      <!-- HERO SECTION -->
+      <section class="locations-hero">
+        <div class="container hero-content">
+          <h1>FIND YOUR BURGONOMICS</h1>
+          <p class="hero-subtitle">Great burgers are closer than you think.</p>
+          <a href="#locator" class="btn-primary">EXPLORE LOCATIONS</a>
+        </div>
+      </section>
+
+      <!-- STORE LOCATOR SECTION -->
+      <section id="locator" class="locator-section">
+        <div class="container">
+          
+          <!-- Search & Filters -->
+          <div class="locator-controls">
+            <div class="search-box">
+              <input type="text" id="location-search" placeholder="Search locations...">
+            </div>
+          </div>
+
+          <!-- Main Layout -->
+          <div class="locator-grid">
+            <!-- Left: Cards -->
+            <div class="location-cards" id="location-cards-container">
+              <!-- Cards injected by JS -->
+            </div>
+            
+            <!-- Right: Map -->
+            <div class="map-container">
+              <div id="locations-map"></div>
+            </div>
+          </div>
+          
+        </div>
+      </section>
+
+      <!-- STATISTICS SECTION -->
+      <section class="locations-stats">
+        <div class="container stats-grid">
+          <div class="stat-item">
+            <h2>5</h2>
+            <p>CURRENT LOCATIONS</p>
+          </div>
+          <div class="stat-item">
+            <h2>4+</h2>
+            <p>AVERAGE CUSTOMER RATING</p>
+          </div>
+          <div class="stat-item">
+            <h2>Multiple</h2>
+            <p>WAYS TO ENJOY</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- UPCOMING LOCATIONS SECTION -->
+      <section class="upcoming-section">
+        <div class="container">
+          <h2 class="section-title">MORE BURGONOMICS COMING YOUR WAY</h2>
+          <div class="upcoming-carousel" id="upcoming-carousel">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- FINAL CTA -->
+      <section class="final-cta">
+        <div class="container cta-content">
+          <h2>YOUR NEXT BURGER IS CLOSER THAN YOU THINK.</h2>
+          <p>Find your nearest Burgonomics and make it a meal worth remembering.</p>
+          <div class="cta-actions">
+            <a href="./menu.html" class="btn-primary">VIEW MENU</a>
+            <a href="./franchise.html" class="btn-outline">BECOME A FRANCHISE PARTNER</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="site-footer">
+        <div class="container footer-grid">
+          <div class="footer-brand">
+            <h2>BURGONOMICS</h2>
+            <p>The House of Damn Good Burgers.</p>
+          </div>
+          <div class="footer-links">
+            <a href="./">Home</a>
+            <a href="./menu.html">Menu</a>
+            <a href="./locations.html">Locations</a>
+            <a href="./franchise.html">Franchise</a>
+            <a href="./about.html">About Us</a>
+            <a href="https://www.instagram.com/burgonomicsindia?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">Instagram</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Burgonomics. All rights reserved. <span style="color: var(--brand-olive);">| Powered by Burgonomics</span></p>
+          <div class="legal-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- App JS -->
+    <script src="./js/locations.js"></script>
+  </body>
+</html>
