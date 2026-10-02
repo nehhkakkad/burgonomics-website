@@ -4,7 +4,8 @@ import ScrollFrameAnimation from '../ScrollFrameAnimation';
 const Home = () => {
   return (
     <div className="home-page">
-      <ScrollFrameAnimation 
+      <ScrollFrameAnimation
+        videoSrc="/video/burger-scroll-b010ef9e.mp4"
         framePathPrefix="/frames/ezgif-frame-"
         frameCount={197}
         frameExtension=".jpg"

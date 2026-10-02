@@ -15,10 +15,16 @@
   align-items: center;
 }
 
-.animation-canvas {
+.animation-canvas,
+.animation-video {
   width: 100%;
   height: 100%;
   display: block;
+}
+
+.animation-video {
+  object-fit: cover;
+  background-color: var(--brand-green-dark);
 }
 
 /* Loading Overlay */
