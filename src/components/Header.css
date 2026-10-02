@@ -1,0 +1,227 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 0;
+  transition: all 0.4s ease;
+}
+
+.header-glass-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  
+  /* Dark Glassmorphism */
+  background: rgba(10, 10, 10, 0.45);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 16px 40px;
+  
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header.scrolled .header-glass-container {
+  background: rgba(10, 10, 10, 0.85);
+  padding: 12px 40px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Glass Shine Animation */
+.header-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  animation: shine 6s infinite;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  20% { left: 200%; }
+  100% { left: 200%; }
+}
+
+/* Layout */
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex: 1;
+}
+
+.header-right {
+  justify-content: space-evenly;
+}
+
+.header-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  margin: 0 60px; /* Keeps side items further away from the logo */
+}
+
+/* Links and Typography */
+.header-glass-container a {
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.header-glass-container a:hover {
+  color: var(--brand-orange);
+}
+
+.brand-text {
+  font-size: 3.2rem !important;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+
+
+/* Social Icon */
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+}
+
+.social-icon:hover {
+  opacity: 1;
+}
+
+/* Mobile Menu Button */
+.mobile-menu-wrapper {
+  display: none;
+}
+
+.mobile-menu-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 8px;
+  transition: color 0.3s ease, transform 0.3s ease;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-menu-btn:hover {
+  color: var(--brand-orange);
+  transform: scale(1.1);
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(10, 10, 10, 0.98);
+  z-index: -1;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-menu.open {
+  opacity: 1;
+  visibility: visible;
+  z-index: 99;
+}
+
+.mobile-menu-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  transform: translateY(20px);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-menu.open .mobile-menu-content {
+  transform: translateY(0);
+}
+
+.mobile-menu-content a {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-size: 2.8rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.mobile-menu-content a:hover {
+  color: var(--brand-orange);
+}
+
+@media (max-width: 1024px) {
+  .header-left, .header-right {
+    display: none;
+  }
+  .mobile-menu-wrapper {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+  }
+  .header-glass-container {
+    padding: 12px 24px;
+  }
+  .header.scrolled .header-glass-container {
+    padding: 10px 24px;
+  }
+  .header-center {
+    flex: 1;
+    justify-content: flex-start;
+    margin: 0;
+  }
+  .brand-text {
+    font-size: 2.2rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-glass-container {
+    padding: 10px 16px;
+  }
+  .header.scrolled .header-glass-container {
+    padding: 8px 16px;
+  }
+  .brand-text {
+    font-size: 1.8rem !important;
+  }
+  .mobile-menu-content a {
+    font-size: 2rem;
+  }
+  .mobile-menu-content {
+    gap: 24px;
+  }
+}

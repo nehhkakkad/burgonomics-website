@@ -1,119 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <meta name="description" content="Burgonomics: Pure ingredients. Fresh buns. The evolution of vegetarian gastronomy." />
-    <script src="./js/nav.js" defer></script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Burgonomics - Haute Gastronomy Editorial</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>finale</title>
   </head>
   <body>
-    <div class="loading-overlay" id="loading">
-      FRIES ARE FRYING...
-    </div>
-    
-    <!-- NAVIGATION -->
-    <nav class="top-nav">
-      <div class="nav-left">
-        <a href="./">Burgonomics</a>
-        <a href="./menu.html">Menu</a>
-        <a href="./locations.html">Locations</a>
-      </div>
-      <a href="./" class="nav-logo">
-        <img src="./logo.jpg" alt="Burgonomics Logo" />
-      </a>
-      <div class="nav-right">
-        <a href="./franchise.html">Franchise</a>
-        <a href="./about.html">About Us</a>
-        <a href="https://www.instagram.com/burgonomicsindia?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="nav-social" style="display:flex;align-items:center;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-        </a>
-      </div>
-      <div class="mobile-menu-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </nav>
-
-    <div class="mobile-nav-overlay">
-      <div class="mobile-nav-content">
-        <a href="./">Burgonomics</a>
-        <a href="./menu.html">Menu</a>
-        <a href="./locations.html">Locations</a>
-        <a href="./franchise.html">Franchise</a>
-        <a href="./about.html">About Us</a>
-      </div>
-    </div>
-
-    <div id="app">
-      <!-- HERO SCROLL ANIMATION -->
-      <section class="hero-scroll-section">
-        <div class="scroll-container">
-          <div class="canvas-wrapper">
-            <canvas id="animation-canvas"></canvas>
-            <div class="canvas-overlay-gradient"></div>
-          </div>
-          
-          <div class="content-section">
-            <div class="content-block hero-block">
-              <h1>THE HOUSE OF DAMN GOOD BURGERS</h1>
-              <p class="subtitle">Pure ingredients. Fresh buns. The evolution of vegetarian gastronomy.</p>
-              <div class="hero-actions">
-                <a href="./menu.html" class="btn-primary">Explore Collection</a>
-              </div>
-              <div class="hero-metrics">
-                <span>Farm-Fresh Produce</span>
-                <span class="divider"></span>
-                <span>100% Vegetarian</span>
-                <span class="divider"></span>
-                <span>Artisan Buns</span>
-              </div>
-            </div>
-            
-            <div class="content-block align-left">
-              <h1>PRECISION</h1>
-              <p>Every layer has a purpose.<br><br>From the architecture of the bun to the balance of sauces, fillings, and crunch, every component is considered down to the detail.</p>
-            </div>
-            <div class="content-block align-right">
-              <h1>CONTRAST</h1>
-              <p>Soft meets crisp. Rich meets fresh.<br><br>We build every burger around the tension between textures and flavours that makes each bite memorable.</p>
-            </div>
-            <div class="content-block align-left">
-              <h1>OBSESSION</h1>
-              <p>Good enough isn't on the menu.<br><br>We sweat the details. The toast, the crunch, the sauce, the final assembly. Because when the details are right, the burger speaks for itself.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- FOOTER -->
-      <footer class="site-footer">
-        <div class="container footer-grid">
-          <div class="footer-brand">
-            <h2>BURGONOMICS</h2>
-            <p>The House of Damn Good Burgers.</p>
-          </div>
-          <div class="footer-links">
-            <a href="./">Home</a>
-            <a href="./menu.html">Menu</a>
-            <a href="./locations.html">Locations</a>
-            <a href="./franchise.html">Franchise</a>
-            <a href="./about.html">About Us</a>
-            <a href="https://www.instagram.com/burgonomicsindia?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">Instagram</a>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <p>&copy; 2026 Burgonomics. All rights reserved. <span style="color: var(--brand-olive);">| Powered by Burgonomics</span></p>
-          <div class="legal-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-          </div>
-        </div>
-      </footer>
-    </div>
-    <script type="module" src="./main.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

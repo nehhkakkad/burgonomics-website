@@ -1,0 +1,241 @@
+.franchise-page {
+  padding-top: 100px;
+  min-height: 100vh;
+  background-color: var(--bg-secondary);
+}
+
+/* Hero Section */
+.franchise-hero {
+  padding: 80px 40px;
+  text-align: center;
+  background-color: var(--brand-green);
+  color: white;
+}
+
+.success-hero {
+  height: calc(100vh - 100px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.franchise-hero-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.franchise-label {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: var(--brand-orange);
+  margin-bottom: 24px;
+  display: block;
+}
+
+.franchise-title {
+  font-family: var(--font-display);
+  font-size: 5rem;
+  line-height: 1;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.franchise-subtitle {
+  font-size: 1.25rem;
+  font-weight: 500;
+  opacity: 0.9;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.reset-btn {
+  margin-top: 40px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Form Section */
+.franchise-form-section {
+  padding: 80px 20px;
+}
+
+.form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: var(--radius-md);
+  padding: 60px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(13, 68, 41, 0.05);
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.form-header h2 {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--brand-green);
+  margin-bottom: 12px;
+}
+
+.form-header p {
+  color: rgba(7, 42, 25, 0.7);
+  font-size: 1.1rem;
+}
+
+.franchise-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-row {
+  display: flex;
+  gap: 24px;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group.full-width {
+  width: 100%;
+}
+
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--brand-green-dark);
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 16px 20px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  border: 2px solid rgba(13, 68, 41, 0.1);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-secondary);
+  color: var(--brand-green-dark);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--brand-green);
+  background-color: white;
+  box-shadow: 0 0 0 4px rgba(13, 68, 41, 0.05);
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(7, 42, 25, 0.3);
+}
+
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230d4429' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px;
+  cursor: pointer;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-submit {
+  margin-top: 16px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 20px;
+  background-color: var(--brand-orange);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: var(--brand-orange-light);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(224, 93, 38, 0.2);
+}
+
+@media (max-width: 768px) {
+  .franchise-page {
+    padding-top: 80px;
+  }
+  .franchise-hero {
+    padding: 60px 20px;
+  }
+  .franchise-title {
+    font-size: 3rem;
+  }
+  .franchise-subtitle {
+    font-size: 1.1rem;
+  }
+  .franchise-form-section {
+    padding: 40px 16px;
+  }
+  .form-container {
+    padding: 40px 24px;
+  }
+  .form-header h2 {
+    font-size: 2rem;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .franchise-form {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .franchise-hero {
+    padding: 40px 16px;
+  }
+  .franchise-title {
+    font-size: 2.2rem;
+  }
+  .franchise-subtitle {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .form-container {
+    padding: 32px 16px;
+    border-radius: var(--radius-sm);
+  }
+  .form-header h2 {
+    font-size: 1.8rem;
+  }
+  .form-header p {
+    font-size: 0.95rem;
+  }
+  input, select, textarea {
+    padding: 14px 16px;
+    font-size: 0.95rem;
+  }
+  .submit-btn {
+    padding: 16px;
+    font-size: 1rem;
+  }
+}

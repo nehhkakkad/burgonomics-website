@@ -12,10 +12,6 @@ dist
 dist-ssr
 *.local
 
-# opencode-swarm / local tooling - never commit
-.swarm/
-.opencode/
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -26,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# opencode-swarm / local tooling - never commit
+.swarm/
+.opencode/
