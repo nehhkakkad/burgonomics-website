@@ -107,7 +107,11 @@ const ScrollFrameAnimation = ({
       canvas.width = Math.floor(rect.width * dpr);
       canvas.height = Math.floor(rect.height * dpr);
     }
-    
+
+    // Resizing the canvas resets context state, so set this after the resize.
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
     const canvasRatio = canvas.width / canvas.height;

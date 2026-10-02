@@ -26,3 +26,5 @@ dist-ssr
 # opencode-swarm / local tooling - never commit
 .swarm/
 .opencode/
+
+__pycache__/
