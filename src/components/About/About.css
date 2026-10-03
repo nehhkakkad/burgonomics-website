@@ -99,6 +99,11 @@
   filter: saturate(1.1) contrast(1.05); /* Slight image pop */
 }
 
+/* <picture> must not introduce its own box: img keeps the exact old layout */
+.team-card-image-wrapper picture {
+  display: contents;
+}
+
 .team-card:hover .team-card-img {
   transform: scale(1.08);
 }

@@ -1,7 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { menuData, menuCategories, favourites } from './menuData';
+import { menuData, menuCategories, favourites, imageVariants } from './menuData';
 import './Menu.css';
+
+// Responsive image sizes (derived from Menu.css layout):
+// featured card max 291px CSS (1280px+), thumb 96px / 72px on mobile.
+const FEATURED_IMG_SIZES = '(min-width: 1280px) 291px, (min-width: 953px) calc(30vw - 21px), (min-width: 630px) calc(45vw - 16px), 90vw';
+const THUMB_IMG_SIZES = '(min-width: 769px) 96px, 72px';
+
+const MenuImage = ({ item, className, sizes, loading, onError }) => {
+  const variants = imageVariants[item.image];
+  if (!variants) {
+    return <img src={item.image} alt={item.name} className={className} loading={loading} onError={onError} />;
+  }
+  return (
+    <picture>
+      <source type="image/avif" srcSet={variants.avif} sizes={sizes} />
+      <source type="image/webp" srcSet={variants.webp} sizes={sizes} />
+      <img
+        src={item.image}
+        srcSet={variants.jpeg}
+        sizes={sizes}
+        alt={item.name}
+        className={className}
+        loading={loading}
+        decoding="async"
+        onError={onError}
+      />
+    </picture>
+  );
+};
 
 const MenuItem = ({ item, hideImage = false }) => (
   <div className="product-item reveal">
@@ -11,7 +39,7 @@ const MenuItem = ({ item, hideImage = false }) => (
     </div>
     <div className="product-price">₹{item.price}</div>
     {item.image && !hideImage && (
-      <img src={item.image} alt={item.name} className="product-image-sleek" loading="lazy" onError={(e) => e.target.style.display='none'} />
+      <MenuImage item={item} className="product-image-sleek" sizes={THUMB_IMG_SIZES} loading="lazy" onError={(e) => e.target.style.display='none'} />
     )}
   </div>
 );
@@ -116,7 +144,7 @@ const Menu = () => {
                         <h3 className="product-name">{item.name}</h3>
                         <p className="product-desc">Steam: ₹{item.steamPrice} / Fried: ₹{item.friedPrice}</p>
                       </div>
-                      {item.image && <img src={item.image} alt={item.name} className="product-image-sleek" />}
+                      {item.image && <MenuImage item={item} className="product-image-sleek" sizes={THUMB_IMG_SIZES} />}
                    </div>
                 ) : item.category === 'Momos' && !item.steamPrice ? (
                    <div key={item.name} className="product-item reveal active">
@@ -124,7 +152,7 @@ const Menu = () => {
                         <h3 className="product-name">{item.name}</h3>
                         <p className="product-desc">Fried: ₹{item.friedPrice}</p>
                       </div>
-                      {item.image && <img src={item.image} alt={item.name} className="product-image-sleek" />}
+                      {item.image && <MenuImage item={item} className="product-image-sleek" sizes={THUMB_IMG_SIZES} />}
                    </div>
                 ) : (
                   <MenuItem key={item.name} item={item} />
@@ -151,7 +179,7 @@ const Menu = () => {
                   return (
                     <div key={favName} className="featured-card reveal">
                       <div className="featured-card-img-container">
-                        {item.image && <img src={item.image} alt={item.name} className="featured-card-img" onError={(e) => e.target.style.display='none'} />}
+                        {item.image && <MenuImage item={item} className="featured-card-img" sizes={FEATURED_IMG_SIZES} loading="lazy" onError={(e) => e.target.style.display='none'} />}
                       </div>
                       <div className="featured-card-content">
                         <div className="featured-card-title">{item.name}</div>

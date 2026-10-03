@@ -111,3 +111,39 @@ export const favourites = [
   "Dirty Fries",
   "Cheese Heaven Pizza"
 ];
+
+// Responsive derivatives in public/menu_images/optimized/.
+// Keys are the original image paths; JPEG srcset lists the untouched
+// original first (largest candidate), then the downscaled derivatives.
+export const imageVariants = {
+  "/menu_images/Big Bang/Great Indian.jpg": {
+    avif: "/menu_images/optimized/great-indian-1600.avif 900w, /menu_images/optimized/great-indian-800.avif 800w, /menu_images/optimized/great-indian-400.avif 400w",
+    webp: "/menu_images/optimized/great-indian-1600.webp 900w, /menu_images/optimized/great-indian-800.webp 800w, /menu_images/optimized/great-indian-400.webp 400w",
+    jpeg: "/menu_images/Big%20Bang/Great%20Indian.jpg 900w, /menu_images/optimized/great-indian-800.jpg 800w, /menu_images/optimized/great-indian-400.jpg 400w"
+  },
+  "/menu_images/Big Bang/Cheese burst.jpg": {
+    avif: "/menu_images/optimized/cheese-burst-1600.avif 900w, /menu_images/optimized/cheese-burst-800.avif 800w, /menu_images/optimized/cheese-burst-400.avif 400w",
+    webp: "/menu_images/optimized/cheese-burst-1600.webp 900w, /menu_images/optimized/cheese-burst-800.webp 800w, /menu_images/optimized/cheese-burst-400.webp 400w",
+    jpeg: "/menu_images/Big%20Bang/Cheese%20burst.jpg 900w, /menu_images/optimized/cheese-burst-800.jpg 800w, /menu_images/optimized/cheese-burst-400.jpg 400w"
+  },
+  "/menu_images/Big Bang/Super Hero.jpg": {
+    avif: "/menu_images/optimized/super-hero-1600.avif 900w, /menu_images/optimized/super-hero-800.avif 800w, /menu_images/optimized/super-hero-400.avif 400w",
+    webp: "/menu_images/optimized/super-hero-1600.webp 900w, /menu_images/optimized/super-hero-800.webp 800w, /menu_images/optimized/super-hero-400.webp 400w",
+    jpeg: "/menu_images/Big%20Bang/Super%20Hero.jpg 900w, /menu_images/optimized/super-hero-800.jpg 800w, /menu_images/optimized/super-hero-400.jpg 400w"
+  },
+  "/menu_images/Big Bang/tandoori paneer.jpg": {
+    avif: "/menu_images/optimized/tandoori-paneer-1600.avif 1600w, /menu_images/optimized/tandoori-paneer-800.avif 800w, /menu_images/optimized/tandoori-paneer-400.avif 400w",
+    webp: "/menu_images/optimized/tandoori-paneer-1600.webp 1600w, /menu_images/optimized/tandoori-paneer-800.webp 800w, /menu_images/optimized/tandoori-paneer-400.webp 400w",
+    jpeg: "/menu_images/Big%20Bang/tandoori%20paneer.jpg 4160w, /menu_images/optimized/tandoori-paneer-1600.jpg 1600w, /menu_images/optimized/tandoori-paneer-800.jpg 800w, /menu_images/optimized/tandoori-paneer-400.jpg 400w"
+  },
+  "/menu_images/Fries/Dirty fries.jpg": {
+    avif: "/menu_images/optimized/dirty-fries-1600.avif 1600w, /menu_images/optimized/dirty-fries-800.avif 800w, /menu_images/optimized/dirty-fries-400.avif 400w",
+    webp: "/menu_images/optimized/dirty-fries-1600.webp 1600w, /menu_images/optimized/dirty-fries-800.webp 800w, /menu_images/optimized/dirty-fries-400.webp 400w",
+    jpeg: "/menu_images/Fries/Dirty%20fries.jpg 4160w, /menu_images/optimized/dirty-fries-1600.jpg 1600w, /menu_images/optimized/dirty-fries-800.jpg 800w, /menu_images/optimized/dirty-fries-400.jpg 400w"
+  },
+  "/menu_images/Pizza/4 cheese.png": {
+    avif: "/menu_images/optimized/4-cheese-1600.avif 1024w, /menu_images/optimized/4-cheese-800.avif 800w, /menu_images/optimized/4-cheese-400.avif 400w",
+    webp: "/menu_images/optimized/4-cheese-1600.webp 1024w, /menu_images/optimized/4-cheese-800.webp 800w, /menu_images/optimized/4-cheese-400.webp 400w",
+    jpeg: "/menu_images/Pizza/4%20cheese.png 1024w, /menu_images/optimized/4-cheese-800.jpg 800w, /menu_images/optimized/4-cheese-400.jpg 400w"
+  },
+};
