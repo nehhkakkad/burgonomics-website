@@ -67,9 +67,43 @@ A_MAX = 2.4               # hard cap on the unsharp amount (no runaway boosts)
 CENTRAL = (480, 1440, 270, 810)   # central food region: x0, x1, y0, y1
 GRID_SIGMA = 1.0              # px of a block boundary that gets shielded
 GRID_DAMP = 0.80              # max fraction of the boost removed on the grid
+MID_SIGMA = 2.4               # second, wider clarity radius (mid-frequency)
+MID_W = 0.9                   # weight of the mid band against the fine band
+DEBLOCK = True                # edge-adaptive JPEG deblock before sharpening
+DB_STRENGTH = 0.75            # how much of an unjustified grid step to remove
+DB_GATE = 8.0                 # Sobel activity where deblock gives up (busy areas)
 FEATHER = 8.0             # sigma (px) feather that keeps the inpainted patch alone
 PRISTINE_COMMIT = "0131958"
 BAND_LO, BAND_HI = 0.90, 1.10     # acceptance band around the common target
+
+
+def edge_adaptive_deblock(img, strength=DB_STRENGTH, gate=DB_GATE):
+    """Shrink the step discontinuity the 8px JPEG grid puts on flat areas.
+
+    The step is only removed where the surrounding activity is low — a pixel
+    sitting on real texture or a real edge justifies its own gradient, so it
+    is left alone (that is what keeps this from turning into a blur)."""
+    f = img.astype(np.float32)
+    luma = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY).astype(np.float32)
+    gy, gx = np.gradient(luma)
+    act = np.sqrt(gx * gx + gy * gy)
+    w = 1.0 / (1.0 + (act / gate) ** 2)          # 1 = flat, 0 = busy
+    for axis in (0, 1):
+        d = np.diff(f, axis=axis)                # d[i] = f[i+1] - f[i]
+        bi = np.arange(d.shape[axis])
+        mask = ((bi % 8) == 7)
+        mask = mask.reshape((-1, 1, 1) if axis == 0 else (1, -1, 1))
+        interior = 0.5 * (np.roll(d, -4, axis=axis) + np.roll(d, 4, axis=axis))
+        excess = np.where(mask, d - interior, 0.0)
+        wg = (w[:-1] if axis == 0 else w[:, :-1])[..., None]
+        corr = np.clip(excess, -24.0, 24.0) * strength * wg
+        if axis == 0:
+            f[:-1] += 0.5 * corr
+            f[1:] -= 0.5 * corr
+        else:
+            f[:, :-1] += 0.5 * corr
+            f[:, 1:] -= 0.5 * corr
+    return np.clip(f, 0, 255).astype(np.uint8)
 
 
 def build_mask(src):
@@ -130,6 +164,8 @@ def prepare(path, mask):
         fixed = cv2.inpaint(src, mask, INPAINT_RADIUS, cv2.INPAINT_TELEA)
     else:
         fixed = src.copy()
+    if DEBLOCK:
+        fixed = edge_adaptive_deblock(fixed)
 
     lap_p = np.abs(cv2.Laplacian(pg.astype(np.float64), cv2.CV_64F))
     excl = cv2.dilate(mask, np.ones((15, 15), np.uint8)) > 0
@@ -164,7 +200,10 @@ def prepare(path, mask):
 
     base = fixed.astype(np.float32)
     blur = cv2.GaussianBlur(fixed, (0, 0), SHARPEN_SIGMA).astype(np.float32)
-    dw = (base - blur) * w[:, :, None]
+    mid = cv2.GaussianBlur(fixed, (0, 0), MID_SIGMA).astype(np.float32)
+    # Two-scale clarity: the fine band sharpens micro-detail, the wider band
+    # restores the mid-frequency "bite" that the soft late frames are missing.
+    dw = ((base - blur) + MID_W * (base - mid)) * w[:, :, None]
 
     return {
         "path": path,
@@ -229,6 +268,8 @@ def main():
     ap.add_argument("--target", type=float, default=None,
                     help="pin the common acutance target instead of deriving it")
     ap.add_argument("--search-iters", type=int, default=6)
+    ap.add_argument("--a-max", type=float, default=A_MAX,
+                    help="hard cap on the clarity amount (default %.1f)" % A_MAX)
     ap.add_argument("frames", nargs="*", help="optional subset of file names")
     args = ap.parse_args()
 
@@ -238,9 +279,11 @@ def main():
     mask = build_mask(src)
     print("watermark mask px: %d" % int((mask > 0).sum()), flush=True)
     print("src=%s  out=%s  q=%d" % (src, args.out, JPEG_Q), flush=True)
-    print("unsharp: edge-aware sigma=%.1f EDGE_K=%.0f  guards: halo<=%.3f "
-          "(sobel<=%.3f) clip<=%.4f a<=%.1f"
-          % (SHARPEN_SIGMA, EDGE_K, HALO_CAP, HALO_CAP_SOBEL, CLIP_CAP, A_MAX),
+    a_max = args.a_max
+    print("unsharp: edge-aware sigma=%.1f+mid %.1f w=%.2f EDGE_K=%.0f  "
+          "guards: halo<=%.3f (sobel<=%.3f) clip<=%.4f a<=%.1f  deblock=%s"
+          % (SHARPEN_SIGMA, MID_SIGMA, MID_W, EDGE_K, HALO_CAP, HALO_CAP_SOBEL,
+             CLIP_CAP, a_max, "on" if DEBLOCK else "off"),
           flush=True)
 
     files = sorted(glob.glob(os.path.join(src, "*.jpg")))
@@ -256,11 +299,11 @@ def main():
     caps = []
     for i, f in enumerate(files, 1):
         plan = prepare(f, mask)
-        m_a = render(plan, A_MAX)
+        m_a = render(plan, a_max)
         if feasible(m_a):
-            a_hi, m_hi = A_MAX, m_a
+            a_hi, m_hi = a_max, m_a
         else:
-            a_hi, m_hi = bisect(plan, 0.0, A_MAX, args.search_iters, feasible)
+            a_hi, m_hi = bisect(plan, 0.0, a_max, args.search_iters, feasible)
         caps.append((f, a_hi, m_hi["lap"], m_hi["halo"], m_hi["halo_sob"],
                      m_hi["clip"]))
         if i % 40 == 0 or i == len(files):
