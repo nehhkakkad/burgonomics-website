@@ -18,7 +18,7 @@ const MenuImage = ({ item, className, sizes, loading, onError }) => {
       <source type="image/avif" srcSet={variants.avif} sizes={sizes} />
       <source type="image/webp" srcSet={variants.webp} sizes={sizes} />
       <img
-        src={item.image}
+        src={variants.fallback}
         srcSet={variants.jpeg}
         sizes={sizes}
         alt={item.name}

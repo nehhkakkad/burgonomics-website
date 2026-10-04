@@ -10,9 +10,9 @@ const teamMembers = [
       name: "Nehh Kakkad",
       role: "Marketing & Tech",
       description: "Leading brand strategy, digital presence, and marketing innovation.",
-      image: "/team_images/nehh kakkad.jpeg",
+      image: "/team_images/nehh-1280.jpg",
       webpSrcSet: "/team_images/nehh-800.webp 800w, /team_images/nehh-400.webp 400w, /team_images/nehh-320.webp 320w",
-      imgSrcSet: "/team_images/nehh%20kakkad.jpeg 3024w, /team_images/nehh-1280.jpg 1280w, /team_images/nehh-800.jpg 800w, /team_images/nehh-400.jpg 400w, /team_images/nehh-320.jpg 320w"
+      imgSrcSet: "/team_images/nehh-1280.jpg 1280w, /team_images/nehh-800.jpg 800w, /team_images/nehh-400.jpg 400w, /team_images/nehh-320.jpg 320w"
   },
   {
       number: "02",
@@ -47,9 +47,9 @@ const teamMembers = [
       name: "Dipen Bhimani",
       role: "HR & Operations",
       description: "Building a strong, unified team culture and managing staffing operations.",
-      image: "/team_images/dipen.jpeg",
+      image: "/team_images/dipen-1280.jpg",
       webpSrcSet: "/team_images/dipen-1280.webp 1280w, /team_images/dipen-800.webp 800w, /team_images/dipen-400.webp 400w",
-      imgSrcSet: "/team_images/dipen.jpeg 2136w, /team_images/dipen-1280.jpg 1280w, /team_images/dipen-800.jpg 800w, /team_images/dipen-400.jpg 400w"
+      imgSrcSet: "/team_images/dipen-1280.jpg 1280w, /team_images/dipen-800.jpg 800w, /team_images/dipen-400.jpg 400w"
   }
 ];
 
