@@ -41,7 +41,7 @@ const FloatingText = ({ progress, start, end, side, title, subtitle, linkTo, lin
 
 const ScrollFrameAnimation = ({
   videoSrc,
-  framePathPrefix = '/frames/ezgif-frame-',
+  framePathPrefix = '/frames-1bd57062/ezgif-frame-',
   frameCount = 197,
   frameExtension = '.jpg',
   scrollHeight = '700vh'

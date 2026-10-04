@@ -45,7 +45,7 @@ import cv2
 import numpy as np
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DEFAULT_DIR = os.path.join(ROOT, "public", "frames")
+DEFAULT_DIR = os.path.join(ROOT, "public", "frames-1bd57062")
 
 # The Gemini watermark is a static overlay: two sparkles at a fixed position.
 # star1 = x1704-1776, y864-936  |  star2 = x1756-1827, y908-977

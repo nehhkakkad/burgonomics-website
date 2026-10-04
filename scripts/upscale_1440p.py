@@ -1,6 +1,6 @@
 """Build the 2560x1440 reference frames for the home-scroll video.
 
-Reads the sharpened 1920x1080 frames in public/frames, upscales 4:3 with
+Reads the sharpened 1920x1080 frames in public/frames-1bd57062, upscales 4:3 with
 Lanczos, then runs a light per-frame acutance correction so the 1440p result
 carries at least the same per-pixel acutance as the 1080p source (a plain
 Lanczos upscale loses it).  Each frame is JPEG-encoded exactly once at q95 and
@@ -17,7 +17,7 @@ import cv2
 import numpy as np
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FRAMES = os.path.join(ROOT, "public", "frames")
+FRAMES = os.path.join(ROOT, "public", "frames-1bd57062")
 DST = os.path.join(tempfile.gettempdir(), "burgonomics-1440p-refs")
 
 W, H = 2560, 1440
