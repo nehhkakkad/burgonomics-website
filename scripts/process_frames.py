@@ -65,6 +65,8 @@ HALO_CAP_SOBEL = 0.12     # same deviation normalised by pristine edge magnitude
 CLIP_CAP = 0.0015         # max fraction of pixels allowed to land on 0 or 255
 A_MAX = 2.4               # hard cap on the unsharp amount (no runaway boosts)
 CENTRAL = (480, 1440, 270, 810)   # central food region: x0, x1, y0, y1
+GRID_SIGMA = 1.0              # px of a block boundary that gets shielded
+GRID_DAMP = 0.80              # max fraction of the boost removed on the grid
 FEATHER = 8.0             # sigma (px) feather that keeps the inpainted patch alone
 PRISTINE_COMMIT = "0131958"
 BAND_LO, BAND_HI = 0.90, 1.10     # acceptance band around the common target
@@ -86,7 +88,10 @@ def build_mask(src):
                 sub[y0:y1, x0:x1][lab == i] = 1
     mask = cv2.dilate(sub, np.ones((DILATE, DILATE), np.uint8))
     if int((mask > 0).sum()) < 3000:
-        raise RuntimeError("watermark mask came out too small")
+        # The source is already watermark-free (commit 446e8c8 stripped it):
+        # nothing to inpaint, so hand back an empty mask.
+        print("source is watermark-free, skipping inpaint", flush=True)
+        return np.zeros_like(mask)
     return mask
 
 
@@ -121,7 +126,10 @@ def prepare(path, mask):
     if src is None:
         raise RuntimeError("read failed: " + path)
     pg = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
-    fixed = cv2.inpaint(src, mask, INPAINT_RADIUS, cv2.INPAINT_TELEA)
+    if int((mask > 0).sum()):
+        fixed = cv2.inpaint(src, mask, INPAINT_RADIUS, cv2.INPAINT_TELEA)
+    else:
+        fixed = src.copy()
 
     lap_p = np.abs(cv2.Laplacian(pg.astype(np.float64), cv2.CV_64F))
     excl = cv2.dilate(mask, np.ones((15, 15), np.uint8)) > 0
@@ -142,6 +150,17 @@ def prepare(path, mask):
         cover = cv2.GaussianBlur((mask > 0).astype(np.float32), (0, 0), FEATHER)
         w *= (1.0 - np.minimum(cover, 1.0))
     w = w.astype(np.float32)
+
+    # Shield the JPEG 8px block grid: an unsharp mask applied at a block
+    # boundary doubles the step there, and the 1080p -> 1440p upscale then
+    # smears those steps into the visible "square pixels" on the burger.
+    yy, xx = np.indices(pg.shape)
+
+    def near_grid(a):
+        d = np.minimum(a % 8.0, 8.0 - (a % 8.0))
+        return 1.0 - GRID_DAMP * np.exp(-(d * d) / (2.0 * GRID_SIGMA ** 2))
+
+    w = (w * (near_grid(xx) * near_grid(yy))).astype(np.float32)
 
     base = fixed.astype(np.float32)
     blur = cv2.GaussianBlur(fixed, (0, 0), SHARPEN_SIGMA).astype(np.float32)

@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div className="home-page">
       <ScrollFrameAnimation
-        videoSrc="/video/burger-scroll-3b1ad3a1.mp4"
+        videoSrc="/video/burger-scroll-28a7b914.mp4"
         framePathPrefix="/frames/ezgif-frame-"
         frameCount={197}
         frameExtension=".jpg"

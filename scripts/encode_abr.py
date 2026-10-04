@@ -35,12 +35,16 @@ def run(cmd, cwd=None):
 
 
 def measure(mp4):
-    log = os.path.join(tempfile.gettempdir(), "psnr.log")
+    # Relative name + cwd: a Windows drive letter "C:" breaks ffmpeg's filter
+    # option parser (":" is the option separator), so never pass an absolute path.
+    name = "psnr.log"
+    log = os.path.join(tempfile.gettempdir(), name)
     if os.path.exists(log):
         os.remove(log)
     run([FF, "-y", "-v", "error", "-framerate", "24", "-start_number", "1",
          "-i", PAT, "-i", mp4,
-         "-lavfi", "[0:v][1:v]psnr=stats_file=%s" % log, "-f", "null", "-"])
+         "-lavfi", "[0:v][1:v]psnr=stats_file=%s" % name,
+         "-f", "null", "-"], cwd=tempfile.gettempdir())
     vals = []
     for line in open(log, encoding="utf-8"):
         m = re.search(r"psnr_avg:([0-9.a-z]+)", line)
