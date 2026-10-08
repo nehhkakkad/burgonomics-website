@@ -7,6 +7,9 @@ import Locations from './components/Locations/Locations';
 import Franchise from './components/Franchise/Franchise';
 import Menu from './components/Menu/Menu';
 import About from './components/About/About';
+import Privacy from './components/Legal/Privacy';
+import Terms from './components/Legal/Terms';
+import Support from './components/Legal/Support';
 import './App.css';
 
 function App() {
@@ -20,6 +23,10 @@ function App() {
           <Route path="/franchise" element={<Franchise />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/about" element={<About />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/support" element={<Support />} />
+          <Route path="/partner/support" element={<Support />} />
         </Routes>
       </main>
       <Footer />

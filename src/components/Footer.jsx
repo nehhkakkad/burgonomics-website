@@ -29,8 +29,9 @@ const Footer = () => {
           © 2026 Burgonomics. All rights reserved. | <span className="powered-by">Powered by Burgonomics</span>
         </div>
         <div className="footer-legal">
-          <a href="#privacy">Privacy Policy</a>
-          <a href="#terms">Terms of Service</a>
+          <Link to="/privacy">Privacy Policy</Link>
+          <Link to="/terms">Terms of Service</Link>
+          <Link to="/support">Support</Link>
         </div>
       </div>
     </footer>
