@@ -1,35 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { menuData, menuCategories, favourites, imageVariants } from './menuData';
+import { menuData, menuCategories, favourites } from './menuData';
 import './Menu.css';
-
-// Responsive image sizes (derived from Menu.css layout):
-// featured card max 291px CSS (1280px+), thumb 96px / 72px on mobile.
-const FEATURED_IMG_SIZES = '(min-width: 1280px) 291px, (min-width: 953px) calc(30vw - 21px), (min-width: 630px) calc(45vw - 16px), 90vw';
-const THUMB_IMG_SIZES = '(min-width: 769px) 96px, 72px';
-
-const MenuImage = ({ item, className, sizes, loading, onError }) => {
-  const variants = imageVariants[item.image];
-  if (!variants) {
-    return <img src={item.image} alt={item.name} className={className} loading={loading} onError={onError} />;
-  }
-  return (
-    <picture>
-      <source type="image/avif" srcSet={variants.avif} sizes={sizes} />
-      <source type="image/webp" srcSet={variants.webp} sizes={sizes} />
-      <img
-        src={variants.fallback}
-        srcSet={variants.jpeg}
-        sizes={sizes}
-        alt={item.name}
-        className={className}
-        loading={loading}
-        decoding="async"
-        onError={onError}
-      />
-    </picture>
-  );
-};
 
 const MenuItem = ({ item, hideImage = false }) => (
   <div className="product-item reveal">
@@ -39,7 +11,7 @@ const MenuItem = ({ item, hideImage = false }) => (
     </div>
     <div className="product-price">₹{item.price}</div>
     {item.image && !hideImage && (
-      <MenuImage item={item} className="product-image-sleek" sizes={THUMB_IMG_SIZES} loading="lazy" onError={(e) => e.target.style.display='none'} />
+      <img src={item.image} alt={item.name} className="product-image-sleek" loading="lazy" onError={(e) => e.target.style.display='none'} />
     )}
   </div>
 );
@@ -57,12 +29,45 @@ const Menu = () => {
       });
     }, { threshold: 0.05, rootMargin: "0px 0px -50px 0px" });
 
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.target.id) {
+          const id = entry.target.id;
+          const category = menuCategories.find(cat => cat.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase() === id);
+          if (category) {
+            setActiveCategory(category);
+            const navElement = document.querySelector('.menu-nav');
+            const activeItem = document.querySelector(`.menu-nav-item[data-category="${category}"]`);
+            if (navElement && activeItem) {
+              const scrollLeft = activeItem.offsetLeft - (navElement.clientWidth / 2) + (activeItem.clientWidth / 2);
+              navElement.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+            }
+          }
+        }
+      });
+    }, { rootMargin: "-140px 0px -60% 0px", threshold: 0 });
+
+    const handleScroll = () => {
+      if (window.scrollY < 200) {
+        setActiveCategory('ALL');
+        const navElement = document.querySelector('.menu-nav');
+        if (navElement) {
+          navElement.scrollTo({ left: 0, behavior: 'smooth' });
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     const timeout = setTimeout(() => {
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      document.querySelectorAll('.menu-section[id], .combos-section[id]').forEach(el => sectionObserver.observe(el));
     }, 100);
 
     return () => {
       observer.disconnect();
+      sectionObserver.disconnect();
+      window.removeEventListener('scroll', handleScroll);
       clearTimeout(timeout);
     };
   }, [searchQuery]);
@@ -108,6 +113,7 @@ const Menu = () => {
           {menuCategories.map(cat => (
             <button 
               key={cat} 
+              data-category={cat}
               className={`menu-nav-item ${activeCategory === cat ? 'active' : ''}`}
               onClick={() => handleScrollTo(cat)}
             >
@@ -144,7 +150,7 @@ const Menu = () => {
                         <h3 className="product-name">{item.name}</h3>
                         <p className="product-desc">Steam: ₹{item.steamPrice} / Fried: ₹{item.friedPrice}</p>
                       </div>
-                      {item.image && <MenuImage item={item} className="product-image-sleek" sizes={THUMB_IMG_SIZES} />}
+                      {item.image && <img src={item.image} alt={item.name} className="product-image-sleek" />}
                    </div>
                 ) : item.category === 'Momos' && !item.steamPrice ? (
                    <div key={item.name} className="product-item reveal active">
@@ -152,7 +158,7 @@ const Menu = () => {
                         <h3 className="product-name">{item.name}</h3>
                         <p className="product-desc">Fried: ₹{item.friedPrice}</p>
                       </div>
-                      {item.image && <MenuImage item={item} className="product-image-sleek" sizes={THUMB_IMG_SIZES} />}
+                      {item.image && <img src={item.image} alt={item.name} className="product-image-sleek" />}
                    </div>
                 ) : (
                   <MenuItem key={item.name} item={item} />
@@ -179,7 +185,7 @@ const Menu = () => {
                   return (
                     <div key={favName} className="featured-card reveal">
                       <div className="featured-card-img-container">
-                        {item.image && <MenuImage item={item} className="featured-card-img" sizes={FEATURED_IMG_SIZES} loading="lazy" onError={(e) => e.target.style.display='none'} />}
+                        {item.image && <img src={item.image} alt={item.name} className="featured-card-img" onError={(e) => e.target.style.display='none'} />}
                       </div>
                       <div className="featured-card-content">
                         <div className="featured-card-title">{item.name}</div>

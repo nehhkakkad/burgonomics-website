@@ -4,10 +4,10 @@ import './ScrollFrameAnimation.css';
 
 const FloatingText = ({ progress, start, end, side, title, subtitle, linkTo, linkText }) => {
   const isActive = progress >= start && progress <= end;
-
+  
   let opacity = 0;
-  let translateY = 50;
-
+  let translateY = 50; 
+  
   if (isActive) {
     const localProgress = (progress - start) / (end - start);
     if (localProgress < 0.2) {
@@ -23,10 +23,10 @@ const FloatingText = ({ progress, start, end, side, title, subtitle, linkTo, lin
   }
 
   return (
-    <div
-      className={`floating-text-block side-${side}`}
-      style={{
-        opacity,
+    <div 
+      className={`floating-text-block side-${side}`} 
+      style={{ 
+        opacity, 
         transform: `translateY(calc(-50% + ${translateY}px))`,
         pointerEvents: opacity > 0.5 ? 'auto' : 'none',
         display: isActive ? 'flex' : 'none'
@@ -40,57 +40,25 @@ const FloatingText = ({ progress, start, end, side, title, subtitle, linkTo, lin
 };
 
 const ScrollFrameAnimation = ({
-  videoSrc,
-  framePathPrefix = '/frames-1bd57062/ezgif-frame-',
+  framePathPrefix = '/frames/ezgif-frame-',
   frameCount = 197,
   frameExtension = '.jpg',
   scrollHeight = '700vh'
 }) => {
   const canvasRef = useRef(null);
-  const videoRef = useRef(null);
   const containerRef = useRef(null);
-  const readyRef = useRef(false);
-  const requestRef = useRef();
   const [loadedFrames, setLoadedFrames] = useState(0);
   const [images, setImages] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [bufferPct, setBufferPct] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [useVideo, setUseVideo] = useState(Boolean(videoSrc));
+  const requestRef = useRef();
 
-  const markReady = () => {
-    readyRef.current = true;
-    setIsLoaded(true);
-  };
-
-  // A cache hit can finish before React attaches its handlers.
+  // Load images
   useEffect(() => {
-    if (!useVideo) return;
-    const video = videoRef.current;
-    if (video && video.readyState >= 2) markReady();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [useVideo]);
-
-  const handleVideoError = () => {
-    if (!readyRef.current) setUseVideo(false);
-  };
-
-  const handleVideoProgress = () => {
-    const video = videoRef.current;
-    if (!video || !video.duration) return;
-    const ranges = video.buffered;
-    let end = 0;
-    for (let i = 0; i < ranges.length; i++) end = Math.max(end, ranges.end(i));
-    setBufferPct(Math.min(100, (end / video.duration) * 100));
-  };
-
-  // Image-sequence fallback: only runs when there is no usable video.
-  useEffect(() => {
-    if (useVideo) return;
     let loadedCount = 0;
     const imgArray = new Array(frameCount);
     let isCancelled = false;
-
+    
     const preloadFirst = new Image();
     preloadFirst.src = `${framePathPrefix}001${frameExtension}`;
     preloadFirst.onload = () => {
@@ -98,19 +66,19 @@ const ScrollFrameAnimation = ({
       imgArray[0] = preloadFirst;
       loadedCount++;
       setLoadedFrames(loadedCount);
-
+      
       for (let i = 2; i <= frameCount; i++) {
         const img = new Image();
         const paddedIndex = i.toString().padStart(3, '0');
         img.src = `${framePathPrefix}${paddedIndex}${frameExtension}`;
-
+        
         img.onload = () => {
           if (isCancelled) return;
           imgArray[i - 1] = img;
           loadedCount++;
           setLoadedFrames(loadedCount);
           if (loadedCount === frameCount) {
-            markReady();
+            setIsLoaded(true);
             setImages(imgArray);
           }
         };
@@ -120,12 +88,10 @@ const ScrollFrameAnimation = ({
     return () => {
       isCancelled = true;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [useVideo, frameCount, framePathPrefix, frameExtension]);
+  }, [frameCount, framePathPrefix, frameExtension]);
 
   useEffect(() => {
     if (images[0]) drawFrame(0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images[0]]);
 
   const drawFrame = (frameIndex) => {
@@ -133,26 +99,22 @@ const ScrollFrameAnimation = ({
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     const img = images[frameIndex];
-
+    
     const rect = canvas.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
-
+    
     if (canvas.width !== Math.floor(rect.width * dpr) || canvas.height !== Math.floor(rect.height * dpr)) {
       canvas.width = Math.floor(rect.width * dpr);
       canvas.height = Math.floor(rect.height * dpr);
     }
-
-    // Resizing the canvas resets context state, so set this after the resize.
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+    
     const canvasRatio = canvas.width / canvas.height;
     const imgRatio = img.width / img.height;
-
+    
     let drawWidth, drawHeight, offsetX, offsetY;
-
+    
     if (canvasRatio > imgRatio) {
       drawWidth = canvas.width;
       drawHeight = canvas.width / imgRatio;
@@ -164,76 +126,84 @@ const ScrollFrameAnimation = ({
       offsetX = (canvas.width - drawWidth) / 2;
       offsetY = 0;
     }
-
+    
+    // Draw the full frame normally
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
-  };
-
-  const seekVideo = (progress, frameCount) => {
-    const video = videoRef.current;
-    if (!video || !video.duration) return;
-    // Hold the last frame instead of seeking past the end of the clip.
-    const target = progress * video.duration * ((frameCount - 1) / frameCount);
-    if (Math.abs(video.currentTime - target) <= 0.4 / 24) return;
-    video.currentTime = target;
+    
+    // Blur the bottom right corner to hide the watermark
+    // The watermark is typically in the bottom right ~15% width and ~10% height
+    const blurWidth = drawWidth * 0.15;
+    const blurHeight = drawHeight * 0.10;
+    const blurX = offsetX + drawWidth - blurWidth;
+    const blurY = offsetY + drawHeight - blurHeight;
+    
+    // Draw from the original image to avoid canvas-self-reference issues
+    const srcBlurX = img.width - (img.width * 0.15);
+    const srcBlurY = img.height - (img.height * 0.10);
+    const srcBlurW = img.width * 0.15;
+    const srcBlurH = img.height * 0.10;
+    
+    ctx.filter = 'blur(20px)';
+    ctx.drawImage(
+      img, 
+      srcBlurX, srcBlurY, srcBlurW, srcBlurH, // Source
+      blurX, blurY, blurWidth, blurHeight  // Destination
+    );
+    ctx.filter = 'none';
   };
 
   useEffect(() => {
-    if (!isLoaded) return;
-
+    if (!isLoaded && loadedFrames === 0) return;
+    
     const handleScroll = () => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const maxScroll = rect.height - window.innerHeight;
-
+      
       let progress = -rect.top / maxScroll;
-
+      
       if (progress < 0) progress = 0;
       if (progress > 1) progress = 1;
-
+      
       setScrollProgress(progress);
-
+      
+      const frameIndex = Math.min(
+        frameCount - 1,
+        Math.floor(progress * frameCount)
+      );
+      
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
-      requestRef.current = requestAnimationFrame(() => {
-        if (useVideo) {
-          seekVideo(progress, frameCount);
-        } else {
-          const frameIndex = Math.min(frameCount - 1, Math.floor(progress * frameCount));
-          drawFrame(frameIndex);
-        }
-      });
+      requestRef.current = requestAnimationFrame(() => drawFrame(frameIndex));
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleScroll);
-
+    
     handleScroll();
-
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoaded, useVideo, frameCount]);
-
-  const percent = useVideo ? Math.round(bufferPct) : Math.round((loadedFrames / frameCount) * 100);
+  }, [isLoaded, loadedFrames, frameCount]);
 
   return (
     <div className="scroll-animation-container" style={{ height: scrollHeight }} ref={containerRef}>
       <div className="sticky-viewport">
-
+        
         {/* Loading Overlay */}
         {!isLoaded && (
           <div className="loading-overlay">
             <div className="loading-spinner"></div>
-            <p>Loading Cinematic Experience {percent}%</p>
+            <p>Frying Fries {Math.round((loadedFrames / frameCount) * 100)}%</p>
           </div>
         )}
-
+        
         {/* Temporary First Frame Text */}
-        <div
-          className="hero-content-centered"
-          style={{
+        <div 
+          className="hero-content-centered" 
+          style={{ 
             opacity: Math.max(0, 1 - scrollProgress * 15),
             pointerEvents: scrollProgress > 0.05 ? 'none' : 'auto'
           }}
@@ -249,32 +219,18 @@ const ScrollFrameAnimation = ({
           </div>
         </div>
 
-        {useVideo ? (
-          <video
-            ref={videoRef}
-            className="animation-video"
-            src={videoSrc}
-            muted
-            playsInline
-            preload="auto"
-            onLoadedData={markReady}
-            onProgress={handleVideoProgress}
-            onError={handleVideoError}
-          />
-        ) : (
-          <canvas ref={canvasRef} className="animation-canvas"></canvas>
-        )}
+        <canvas ref={canvasRef} className="animation-canvas"></canvas>
 
         {/* Floating Texts */}
-        <FloatingText
+        <FloatingText 
           progress={scrollProgress} start={0.15} end={0.38} side="left"
           title="THE MENU" subtitle="Premium ingredients. Unmatched flavor. Discover our full range of damn good burgers." linkTo="/menu" linkText="EXPLORE MENU"
         />
-        <FloatingText
+        <FloatingText 
           progress={scrollProgress} start={0.42} end={0.65} side="right"
           title="LOCATIONS" subtitle="Find the closest Burgonomics to satisfy your cravings. We're growing fast." linkTo="/locations" linkText="FIND A STORE"
         />
-        <FloatingText
+        <FloatingText 
           progress={scrollProgress} start={0.69} end={0.92} side="left"
           title="THE MINDS BEHIND" subtitle="Meet the visionary team turning simple ingredients into a culinary obsession." linkTo="/about" linkText="ABOUT US"
         />

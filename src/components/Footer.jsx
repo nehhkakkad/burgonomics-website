@@ -17,7 +17,7 @@ const Footer = () => {
           <Link to="/menu">MENU</Link>
           <Link to="/locations">LOCATIONS</Link>
           <Link to="/franchise">FRANCHISE</Link>
-          <a href="#about">ABOUT US</a>
+          <Link to="/about">ABOUT US</Link>
           <a href="https://www.instagram.com/burgonomicsindia/" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
         </nav>
       </div>

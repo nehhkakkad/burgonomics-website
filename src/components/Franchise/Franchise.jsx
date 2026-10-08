@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import './Franchise.css';
 
@@ -14,6 +14,25 @@ const Franchise = () => {
   });
   
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.05, rootMargin: "0px 0px -50px 0px" });
+
+    const timeout = setTimeout(() => {
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }, 100);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timeout);
+    };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,7 +66,7 @@ const Franchise = () => {
   if (isSubmitted) {
     return (
       <div className="franchise-page">
-        <section className="franchise-hero success-hero">
+        <section className="franchise-hero success-hero reveal">
           <div className="franchise-hero-content">
             <span className="franchise-label">APPLICATION RECEIVED</span>
             <h1 className="franchise-title">YOU'RE ONE STEP CLOSER.</h1>
@@ -76,7 +95,7 @@ const Franchise = () => {
   return (
     <div className="franchise-page">
       {/* Hero Section */}
-      <section className="franchise-hero">
+      <section className="franchise-hero reveal">
         <div className="franchise-hero-content">
           <span className="franchise-label">PARTNER WITH US</span>
           <h1 className="franchise-title">BRING BURGONOMICS<br/>TO YOUR CITY.</h1>
@@ -85,7 +104,7 @@ const Franchise = () => {
       </section>
 
       {/* Form Section */}
-      <section className="franchise-form-section">
+      <section className="franchise-form-section reveal">
         <div className="form-container">
           <div className="form-header">
             <h2>PARTNERSHIP INQUIRY</h2>

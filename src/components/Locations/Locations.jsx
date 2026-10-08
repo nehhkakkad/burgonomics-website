@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { locations } from './locationsData';
 import './Locations.css';
@@ -11,6 +11,25 @@ const Locations = () => {
   const [activeLocationId, setActiveLocationId] = useState(null);
 
   const cardRefs = useRef({});
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.05, rootMargin: "0px 0px -50px 0px" });
+
+    const timeout = setTimeout(() => {
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }, 100);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timeout);
+    };
+  }, []);
 
   const totalLocations = locations.length;
   const existingLocations = locations.filter(l => l.status === 'open' || l.status === 'new').length;
@@ -50,10 +69,11 @@ const Locations = () => {
     });
   }, [searchQuery, statusFilter, stateFilter, cityFilter]);
 
-  const handleLocationClick = (loc) => {
+  const handleLocationClick = (loc, prefix) => {
     setActiveLocationId(loc.id);
-    if (cardRefs.current[loc.id]) {
-      cardRefs.current[loc.id].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const refId = prefix ? `${prefix}-${loc.id}` : loc.id;
+    if (cardRefs.current[refId]) {
+      cardRefs.current[refId].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   };
 
@@ -91,7 +111,7 @@ const Locations = () => {
   return (
     <div className="locations-page">
       {/* Hero Section */}
-      <section className="loc-hero">
+      <section className="loc-hero reveal">
         <div className="loc-hero-content">
           <span className="loc-label">BURGONOMICS LOCATIONS</span>
           <h1 className="loc-title">FIND YOUR<br/>DAMN GOOD BURGER.</h1>
@@ -123,7 +143,7 @@ const Locations = () => {
       </section>
 
       {/* Stats Strip */}
-      <section className="loc-stats">
+      <section className="loc-stats reveal">
         <div className="stat-item">
           <h2>{totalLocations}</h2>
           <p>TOTAL LOCATIONS</p>
@@ -141,7 +161,7 @@ const Locations = () => {
       </section>
 
       {/* Controls: Search & Filters */}
-      <section className="loc-controls">
+      <section className="loc-controls reveal">
         <div className="loc-search-container">
           <input 
             type="text" 
@@ -201,7 +221,7 @@ const Locations = () => {
           <>
             {/* Just Landed */}
             {statusFilter === 'ALL' && newlyOpened.length > 0 && searchQuery === '' && (
-              <section className="loc-section just-landed">
+              <section className="loc-section just-landed reveal">
                 <h2 className="section-title">JUST LANDED</h2>
                 <p className="section-subtitle">The newest places to get your damn good burger.</p>
                 <div className="loc-grid featured-grid">
@@ -209,8 +229,8 @@ const Locations = () => {
                     <div 
                       key={loc.id} 
                       className="loc-card featured-card"
-                      onClick={() => handleLocationClick(loc)}
-                      ref={el => cardRefs.current[loc.id] = el}
+                      onClick={() => handleLocationClick(loc, 'new')}
+                      ref={el => cardRefs.current[`new-${loc.id}`] = el}
                     >
                       <span className="badge new">NEWLY OPENED</span>
                       <h3>{loc.name}</h3>
@@ -228,7 +248,7 @@ const Locations = () => {
 
             {/* Existing Locations */}
             {existingFiltered.length > 0 && (
-              <section className="loc-section existing-locations">
+              <section className="loc-section existing-locations reveal">
                 <h2 className="section-title">FIND A STORE</h2>
                 <p className="section-subtitle">Pick a city. Find your burger.</p>
                 <div className="loc-grid">
@@ -236,10 +256,9 @@ const Locations = () => {
                     <div 
                       key={loc.id} 
                       className={`loc-card ${activeLocationId === loc.id ? 'active' : ''}`}
-                      onClick={() => handleLocationClick(loc)}
-                      ref={el => cardRefs.current[loc.id] = el}
+                      onClick={() => handleLocationClick(loc, 'exist')}
+                      ref={el => cardRefs.current[`exist-${loc.id}`] = el}
                     >
-                      <span className="card-brand">BURGONOMICS</span>
                       <h3>{loc.name}</h3>
                       <p className="loc-city-state">{loc.city}, {loc.state}</p>
                       <span className={`badge ${loc.status}`}>
@@ -258,7 +277,7 @@ const Locations = () => {
 
             {/* Coming Soon */}
             {upcomingFiltered.length > 0 && (
-              <section className="loc-section coming-soon">
+              <section className="loc-section coming-soon reveal">
                 <h2 className="section-title">WE'RE COMING YOUR WAY.</h2>
                 <p className="section-subtitle">More damn good burgers are on the way.</p>
                 <div className="loc-grid upcoming-grid">
@@ -266,8 +285,8 @@ const Locations = () => {
                     <div 
                       key={loc.id} 
                       className={`loc-card upcoming-card ${activeLocationId === loc.id ? 'active' : ''}`}
-                      onClick={() => handleLocationClick(loc)}
-                      ref={el => cardRefs.current[loc.id] = el}
+                      onClick={() => handleLocationClick(loc, 'upcoming')}
+                      ref={el => cardRefs.current[`upcoming-${loc.id}`] = el}
                     >
                       <span className="badge upcoming">COMING SOON</span>
                       <h3>{loc.name}</h3>
@@ -287,7 +306,7 @@ const Locations = () => {
       </div>
 
       {/* Franchise CTA */}
-      <section className="franchise-cta">
+      <section className="franchise-cta reveal">
         <div className="franchise-content">
           <h2>DON'T SEE US IN YOUR CITY?</h2>
           <p>BRING BURGONOMICS TO YOUR CITY.</p>
