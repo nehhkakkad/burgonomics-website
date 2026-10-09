@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your website — 4 short steps</title>
+<style>
+  :root{
+    --bg:#faf9f6; --card:#fff; --line:#e4e1d9; --ink:#1a1f1c; --dim:#5d655f;
+    --accent:#E05D26; --accent-soft:#fdeee7;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:17px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:38rem; margin:0 auto; padding:1.4rem 1.1rem 4rem}
+  h1{font-size:1.65rem; line-height:1.25; margin:.3rem 0 .6rem; color:var(--accent)}
+  h2{
+    font-size:1.2rem; margin:2.2rem 0 .3rem;
+  }
+  .sub{color:var(--dim); font-size:1rem; margin:0 0 1.2rem}
+  p{margin:.8rem 0}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:1rem 1.1rem; margin:1rem 0; box-shadow:0 2px 10px rgba(0,0,0,.03);
+  }
+  .badge{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.9rem; height:1.9rem; border-radius:50%;
+    background:var(--accent); color:#fff; font-weight:700; font-size:1rem;
+    margin-right:.55rem; flex:0 0 auto;
+  }
+  .h-row{display:flex; align-items:center; margin:2.2rem 0 .3rem}
+  .h-row h2{margin:0}
+  ol,ul{padding-left:1.35rem; margin:.6rem 0}
+  li{margin:.45rem 0}
+  .done{list-style:none; padding-left:0}
+  .done li{display:flex; gap:.65rem; align-items:flex-start; margin:.6rem 0}
+  .done li::before{
+    content:""; flex:0 0 auto; width:1.15rem; height:1.15rem; margin-top:.35rem;
+    border:2px solid var(--accent); border-radius:5px;
+  }
+  code{
+    background:var(--accent-soft); border-radius:5px; padding:.1rem .35rem;
+    font-size:.9em; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    word-break:break-all; color:#b8451a;
+  }
+  .note{
+    background:var(--accent-soft); border-left:4px solid var(--accent);
+    border-radius:0 10px 10px 0; padding:.9rem 1rem; margin:1.1rem 0; font-size:.97rem;
+  }
+  .note strong{color:#b8451a}
+  b{color:var(--ink)}
+  .lbl{color:var(--dim); font-weight:600}
+  hr{border:0; border-top:1px solid var(--line); margin:2.4rem 0}
+  .end{
+    text-align:center; color:var(--dim); font-size:.95rem;
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:1.2rem; margin-top:2rem;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--bg:#12100e; --card:#1b1917; --line:#332f2b; --ink:#f2efec; --dim:#a8a29b; --accent:#f27845; --accent-soft:#2e211a}
+    code{color:#ffb08a}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Your website — 4 short steps</h1>
+<p class="sub">About 10 minutes total. I'll handle the rest.<br>
+Nothing here needs any technical knowledge.</p>
+
+<div class="h-row"><span class="badge">1</span><h2>Create your Vercel account</h2></div>
+<div class="card">
+<p><span class="lbl">about 2 minutes</span></p>
+<ol>
+<li>On your computer, go to <b>vercel.com</b></li>
+<li>Click <b>Sign Up</b></li>
+<li>Choose <b>"Continue with Email"</b> — <i>not</i> Google, <i>not</i> GitHub</li>
+<li>Enter your email and a password, then click the confirmation link in your inbox</li>
+</ol>
+<p><b>Use your own email</b> — this account belongs to you, and only you.</p>
+</div>
+
+<div class="h-row"><span class="badge">2</span><h2>Upgrade to Pro</h2></div>
+<div class="card">
+<p><span class="lbl">about 2 minutes</span></p>
+<ol>
+<li>Click your picture in the top-right corner</li>
+<li><b>Settings</b> → <b>Billing</b></li>
+<li>Choose <b>Pro</b> ($20 per month) and enter your card</li>
+</ol>
+<p>Your website is for a business, and the free plan is only for personal use,
+so this step keeps everything above board.</p>
+</div>
+
+<div class="h-row"><span class="badge">3</span><h2>Create a deployment key</h2></div>
+<div class="card">
+<p><span class="lbl">about 2 minutes</span></p>
+<p>This key is what lets me upload updates to your site for you.</p>
+<ol>
+<li>Go to <b>vercel.com/account/tokens</b></li>
+<li>Click <b>Create Token</b></li>
+<li>Name it: <code>burgonomics-deploy</code></li>
+<li><b>Expiration: choose "No Expiration"</b></li>
+<li>Click <b>Create</b>, then <b>copy the key</b> — it only appears once</li>
+</ol>
+<p><b>Then send me two things:</b></p>
+<ul>
+<li>The key you just copied</li>
+<li>Your <b>team name</b> — it's the word right after <code>vercel.com/</code> in your
+browser address bar, or under Settings → General</li>
+</ul>
+<div class="note">
+<strong>About that key:</strong> it only lets me publish updates. It can't change your
+billing, your domain, or your password. You can switch it off at any time from that
+same page (just click Delete) and the website will keep working — you'd just need to
+send me a new key next time you want an update.
+</div>
+</div>
+
+<div class="h-row"><span class="badge">4</span><h2>Point your domain at the website</h2></div>
+<div class="card">
+<p><span class="lbl">about 5 minutes · do this after I've uploaded the site</span></p>
+<p>Once I've uploaded the site, Vercel will show you two specific settings to copy
+across. Here's exactly where to put them in GoDaddy:</p>
+<ol>
+<li>Sign in at <b>godaddy.com</b></li>
+<li>Click your name, top-right → <b>My Products</b></li>
+<li>Next to your domain, click <b>DNS</b> (or "Manage DNS")</li>
+<li>You'll see a table of settings. <b>At the top it says "Nameservers" —
+tell me what it says before you change anything</b></li>
+<li>Find the row where Type is <b>A</b> and Name is <code>@</code><br>
+→ click the pencil icon → change the Value to <code>76.76.21.21</code><br>
+→ if there's no such row, click <b>Add</b> and create one</li>
+<li>Find the row where Type is <b>CNAME</b> and Name is <code>www</code><br>
+→ change the Value to <code>cname.vercel-dns.com</code><br>
+→ if there's no such row, click <b>Add</b> and create one</li>
+<li>If you see anything labelled <b>Forwarding</b>, delete it — it overrides everything</li>
+<li>Click <b>Save</b></li>
+<li>Take a screenshot and send it to me so I can check it's right</li>
+</ol>
+<div class="note">
+<strong>If the values on your Vercel page differ from the ones above, use Vercel's.</strong>
+They're the official ones for your account.
+</div>
+</div>
+
+<div class="end">
+<b>That's it.</b><br>
+After that I'll check everything is working. The site will be live on your own
+domain, and the account and domain stay firmly in your name.
+<br><br>
+If anything on screen doesn't match what's written here, just send me a screenshot
+and I'll tell you what to click.
+</div>
+
+</div>
+</body>
+</html>
