@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { menuData, menuCategories, favourites } from './menuData';
 import './Menu.css';
@@ -11,7 +11,7 @@ const MenuItem = ({ item, hideImage = false }) => (
     </div>
     <div className="product-price">₹{item.price}</div>
     {item.image && !hideImage && (
-      <img src={item.image} alt={item.name} className="product-image-sleek" loading="lazy" onError={(e) => e.target.style.display='none'} />
+      <img src={item.image} alt={item.name} className="product-image-sleek" loading="lazy" decoding="async" onError={(e) => e.target.style.display='none'} />
     )}
   </div>
 );
@@ -19,6 +19,7 @@ const MenuItem = ({ item, hideImage = false }) => (
 const Menu = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('ALL');
+  const navScrollResetRef = useRef(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -50,9 +51,14 @@ const Menu = () => {
     const handleScroll = () => {
       if (window.scrollY < 200) {
         setActiveCategory('ALL');
-        const navElement = document.querySelector('.menu-nav');
-        if (navElement) {
-          navElement.scrollTo({ left: 0, behavior: 'smooth' });
+        // Only re-centre the nav pill once per mount: this handler fires on
+        // every scroll event while near the top of the page.
+        if (!navScrollResetRef.current) {
+          navScrollResetRef.current = true;
+          const navElement = document.querySelector('.menu-nav');
+          if (navElement) {
+            navElement.scrollTo({ left: 0, behavior: 'smooth' });
+          }
         }
       }
     };
@@ -150,7 +156,7 @@ const Menu = () => {
                         <h3 className="product-name">{item.name}</h3>
                         <p className="product-desc">Steam: ₹{item.steamPrice} / Fried: ₹{item.friedPrice}</p>
                       </div>
-                      {item.image && <img src={item.image} alt={item.name} className="product-image-sleek" />}
+                      {item.image && <img src={item.image} alt={item.name} className="product-image-sleek" loading="lazy" decoding="async" />}
                    </div>
                 ) : item.category === 'Momos' && !item.steamPrice ? (
                    <div key={item.name} className="product-item reveal active">
@@ -158,7 +164,7 @@ const Menu = () => {
                         <h3 className="product-name">{item.name}</h3>
                         <p className="product-desc">Fried: ₹{item.friedPrice}</p>
                       </div>
-                      {item.image && <img src={item.image} alt={item.name} className="product-image-sleek" />}
+                      {item.image && <img src={item.image} alt={item.name} className="product-image-sleek" loading="lazy" decoding="async" />}
                    </div>
                 ) : (
                   <MenuItem key={item.name} item={item} />
@@ -185,7 +191,7 @@ const Menu = () => {
                   return (
                     <div key={favName} className="featured-card reveal">
                       <div className="featured-card-img-container">
-                        {item.image && <img src={item.image} alt={item.name} className="featured-card-img" onError={(e) => e.target.style.display='none'} />}
+                        {item.image && <img src={item.image} alt={item.name} className="featured-card-img" loading="lazy" decoding="async" onError={(e) => e.target.style.display='none'} />}
                       </div>
                       <div className="featured-card-content">
                         <div className="featured-card-title">{item.name}</div>

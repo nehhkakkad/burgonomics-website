@@ -1,11 +1,11 @@
 export const menuData = [
   // BIG BANG BURGERS
   { name: "American Burger", category: "Burgers", subcategory: "Big Bang Burgers", price: 159 },
-  { name: "Great Indian Burger", category: "Burgers", subcategory: "Big Bang Burgers", price: 169, image: "/menu_images/Big Bang/Great Indian.jpg" },
+  { name: "Great Indian Burger", category: "Burgers", subcategory: "Big Bang Burgers", price: 169, image: "/menu_images/Big Bang/Great Indian.webp" },
   { name: "Gochuchang Burger", category: "Burgers", subcategory: "Big Bang Burgers", price: 179 },
-  { name: "Cheese Burst Burger", category: "Burgers", subcategory: "Big Bang Burgers", price: 199, image: "/menu_images/Big Bang/Cheese burst.jpg" },
-  { name: "Tandoori Paneer Burger", category: "Burgers", subcategory: "Big Bang Burgers", price: 209, image: "/menu_images/Big Bang/tandoori paneer.jpg" },
-  { name: "Super Hero Burger", category: "Burgers", subcategory: "Big Bang Burgers", price: 219, image: "/menu_images/Big Bang/Super Hero.jpg" },
+  { name: "Cheese Burst Burger", category: "Burgers", subcategory: "Big Bang Burgers", price: 199, image: "/menu_images/Big Bang/Cheese burst.webp" },
+  { name: "Tandoori Paneer Burger", category: "Burgers", subcategory: "Big Bang Burgers", price: 209, image: "/menu_images/Big Bang/tandoori paneer.webp" },
+  { name: "Super Hero Burger", category: "Burgers", subcategory: "Big Bang Burgers", price: 219, image: "/menu_images/Big Bang/Super Hero.webp" },
 
   // CLASSIC BURGERS
   { name: "Jr. Hero Burger", category: "Burgers", subcategory: "Classic Burgers", price: 59 },
@@ -47,13 +47,13 @@ export const menuData = [
   { name: "Onion Rings (5 pcs.)", category: "Sides", price: 139 },
   { name: "Mint Fries", category: "Sides", price: 139 },
   { name: "Peri Peri Cheese Fries", category: "Sides", price: 149 },
-  { name: "Dirty Fries", category: "Sides", price: 169, image: "/menu_images/Fries/Dirty fries.jpg" },
+  { name: "Dirty Fries", category: "Sides", price: 169, image: "/menu_images/Fries/Dirty fries.webp" },
 
   // PIZZA
   { name: "Margherita Pizza", category: "Pizza", price: 219 },
   { name: "Tandoori Paneer Pizza", category: "Pizza", price: 249 },
   { name: "The Veg Overload Pizza", category: "Pizza", price: 249 },
-  { name: "Cheese Heaven Pizza", category: "Pizza", price: 249, image: "/menu_images/Pizza/4 cheese.png" },
+  { name: "Cheese Heaven Pizza", category: "Pizza", price: 249, image: "/menu_images/Pizza/4 cheese.webp" },
 
   // PASTA
   { name: "White Sauce Pasta", category: "Pasta", price: 199 },

@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './components/Home/Home';
-import Locations from './components/Locations/Locations';
-import Franchise from './components/Franchise/Franchise';
-import Menu from './components/Menu/Menu';
-import About from './components/About/About';
-import './App.css';
+
+// Route-level code splitting. Home stays eager: a lazy Home adds a serial
+// network hop before the LCP hero mounts.
+const Menu = lazy(() => import('./components/Menu/Menu'));
+const Locations = lazy(() => import('./components/Locations/Locations'));
+const Franchise = lazy(() => import('./components/Franchise/Franchise'));
+const About = lazy(() => import('./components/About/About'));
 
 function App() {
   const { pathname } = useLocation();
@@ -53,13 +56,15 @@ function App() {
     <div className="app">
       <Header />
       <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/locations" element={<Locations />} />
-          <Route path="/franchise" element={<Franchise />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
+        <Suspense fallback={<div className="route-fallback" />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/locations" element={<Locations />} />
+            <Route path="/franchise" element={<Franchise />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </div>

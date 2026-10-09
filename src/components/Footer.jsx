@@ -4,7 +4,6 @@ import './Footer.css';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
   return (
     <footer className="footer">
       <div className="footer-top">
@@ -26,7 +25,7 @@ const Footer = () => {
       
       <div className="footer-bottom">
         <div className="footer-copyright">
-          © 2026 Burgonomics. All rights reserved. | <span className="powered-by">Powered by Burgonomics</span>
+          © {currentYear} Burgonomics. All rights reserved. | <span className="powered-by">Powered by Burgonomics</span>
         </div>
         <div className="footer-legal">
           <a href="#privacy">Privacy Policy</a>

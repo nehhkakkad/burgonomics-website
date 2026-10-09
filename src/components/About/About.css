@@ -228,10 +228,6 @@
     grid-template-columns: 1fr;
     gap: 30px;
   }
-  .bg-massive-text {
-    font-size: 5rem;
-    top: 100px;
-  }
   .about-content-wrapper {
     padding-top: 150px;
   }

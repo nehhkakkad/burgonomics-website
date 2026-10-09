@@ -315,29 +315,6 @@
   color: #0E4825;
 }
 
-/* Layout A - Large Banner + List */
-.layout-a {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 40px;
-  align-items: start;
-}
-@media (min-width: 992px) {
-  .layout-a {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-.layout-a-img-container {
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
-}
-.layout-a-img {
-  width: 100%;
-  aspect-ratio: 1/1;
-  object-fit: cover;
-}
-
 /* Combos Banner */
 .combos-section {
   background-color: #0E4825;

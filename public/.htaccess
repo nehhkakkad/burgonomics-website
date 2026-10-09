@@ -1,0 +1,69 @@
+# ===========================================================================
+#  Burgonomics — Apache configuration for Hostinger shared hosting
+#
+#  This file lives in public/, so `vite build` copies it into dist/ on its
+#  own. Upload the CONTENTS of dist/ into public_html/ so that this file
+#  ends up NEXT TO index.html (not next to a dist/ folder).
+#
+#  Every directive is wrapped in a nested <IfModule> guard: a missing module
+#  degrades that one feature instead of turning the whole site into a 500.
+# ===========================================================================
+
+
+# --- 1. Rewriting -----------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # (a) Tag frame requests FIRST. This rule MUST precede the file/dir
+  #     short-circuit in (b): all RewriteRules here merge into one ordered
+  #     ruleset, so if (b) ran first it would [L]-stop on every existing
+  #     frame file and this env var would never be set — leaving the
+  #     unhashed scroll frames cached for a week (the stale-frame bug this
+  #     project already fixed once on Vercel).
+  RewriteRule ^frames/ - [E=FRAME_REVALIDATE:1]
+
+  # (b) Real files and directories are served as-is.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # (c) Everything else is a client-side route (/menu, /locations,
+  #     /franchise, /about) -> hand it to the React app shell.
+  RewriteRule . /index.html [L]
+</IfModule>
+
+
+# --- 2. Compression ---------------------------------------------------------
+# AddOutputFilterByType has been a mod_filter directive since Apache 2.3.7,
+# so guarding only mod_deflate would still 500 on a host that loads one but
+# not the other. Guard both.
+<IfModule mod_filter.c>
+  <IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript \
+      application/javascript application/json image/svg+xml
+  </IfModule>
+</IfModule>
+
+
+# --- 3. Caching -------------------------------------------------------------
+# Build output under /assets/ is content-hashed, so it is safe to cache hard.
+# Everything else is unhashed.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp            "access plus 7 days"
+  ExpiresByType image/jpeg            "access plus 7 days"
+  ExpiresByType image/png             "access plus 7 days"
+  ExpiresByType image/svg+xml         "access plus 7 days"
+  ExpiresByType text/css              "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresDefault                      "access plus 0 seconds"
+</IfModule>
+
+# Explicit override for /frames/*: suppress the +7 day Expires above and force
+# revalidation so a regenerated frame set can never be pinned in browser cache.
+<IfModule mod_headers.c>
+  Header unset Expires env=FRAME_REVALIDATE
+  Header set Cache-Control "public, max-age=0, must-revalidate" env=FRAME_REVALIDATE
+  Header set X-Content-Type-Options "nosniff"
+</IfModule>

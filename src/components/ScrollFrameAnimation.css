@@ -39,6 +39,40 @@
   transition: opacity 0.8s ease-out;
 }
 
+/* Released state: keep the existing fade, stop blocking interaction.
+   The element itself is removed (display:none) after the ~0.8s transition. */
+.loading-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Non-blocking progress pill shown after the overlay is released */
+.load-progress-pill {
+  position: absolute;
+  bottom: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: rgba(7, 42, 25, 0.88);
+  color: var(--bg-primary);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.load-progress-pill.visible {
+  opacity: 1;
+}
+
 .loading-spinner {
   width: 48px;
   height: 48px;
