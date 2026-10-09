@@ -78,22 +78,6 @@
   color: var(--brand-orange);
 }
 
-.footer-legal {
-  display: flex;
-  gap: 32px;
-}
-
-.footer-legal a {
-  color: #a8a08c;
-  text-decoration: none;
-  font-size: 0.85rem;
-  transition: color 0.3s ease;
-}
-
-.footer-legal a:hover {
-  color: #fff;
-}
-
 @media (max-width: 1024px) {
   .footer {
     padding: 60px 40px 30px;
@@ -127,9 +111,5 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
-  }
-  .footer-legal {
-    flex-direction: column;
-    gap: 12px;
   }
 }

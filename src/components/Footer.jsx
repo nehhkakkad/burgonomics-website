@@ -27,10 +27,6 @@ const Footer = () => {
         <div className="footer-copyright">
           © {currentYear} Burgonomics. All rights reserved. | <span className="powered-by">Powered by Burgonomics</span>
         </div>
-        <div className="footer-legal">
-          <a href="#privacy">Privacy Policy</a>
-          <a href="#terms">Terms of Service</a>
-        </div>
       </div>
     </footer>
   );
