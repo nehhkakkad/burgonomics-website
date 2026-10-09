@@ -17,7 +17,7 @@
 }
 
 .loc-label {
-  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-family: var(--font-display);
   font-weight: 400;
   font-size: 1.1rem;
   letter-spacing: 0.1em;
@@ -27,7 +27,7 @@
 }
 
 .loc-title {
-  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-family: var(--font-display);
   font-weight: 400;
   font-size: 5.5rem;
   color: var(--brand-green);

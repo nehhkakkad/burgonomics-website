@@ -1,6 +1,18 @@
 /* Font stylesheet is preloaded from index.html (preconnect + <link>) to avoid
    render-blocking CSS-on-CSS serial fetching. */
 
+/* Brand display face — self-hosted so it never falls back silently.
+   font-weight is declared as a range so heavy headings map to the real
+   outline instead of triggering browser-synthesised faux bold. */
+@font-face {
+  font-family: 'MonstroSolid';
+  src: url('/fonts/MonstroSolid.woff2') format('woff2'),
+       url('/fonts/MonstroSolid.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Brand Colors */
   --bg-primary: #FFFFFF;

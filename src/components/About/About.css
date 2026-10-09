@@ -2,7 +2,7 @@
   background-color: #0b0c0a; 
   background-image: radial-gradient(circle at 50% 0%, rgba(20, 30, 20, 0.6) 0%, #0b0c0a 60%);
   color: #FFFFFF;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-body);
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
@@ -36,7 +36,7 @@
 }
 
 .about-main-title {
-  font-family: 'Oswald', 'MonstroSolid', 'Bebas Neue', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(3rem, 6vw, 5.5rem);
   font-weight: 700;
   color: #c9d2b5; /* Pale olive matching the mockup */
@@ -115,14 +115,14 @@
   text-align: center;
 }
 .placeholder-logo {
-  font-family: 'MonstroSolid', sans-serif;
+  font-family: var(--font-display);
   font-size: 3.5rem;
   letter-spacing: 2px;
   margin-bottom: 10px;
   transform: rotate(-10deg);
 }
 .placeholder-text {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.85rem;
   letter-spacing: 3px;
   color: #666;
@@ -140,7 +140,7 @@
 }
 
 .team-card-name {
-  font-family: 'MonstroSolid', sans-serif;
+  font-family: var(--font-display);
   font-size: 2rem;
   color: #FFFFFF;
   margin-bottom: 12px;
@@ -148,7 +148,7 @@
 }
 
 .team-card-role {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 3px;
@@ -164,7 +164,7 @@
 }
 
 .about-cta-dark h2 {
-  font-family: 'MonstroSolid', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(3rem, 5vw, 4.5rem);
   margin-bottom: 50px;
   color: #FFFFFF;
@@ -182,7 +182,7 @@
   background-color: #FFFFFF;
   color: #0b0c0a;
   padding: 18px 48px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 0.95rem;
   border-radius: 50px;
@@ -202,7 +202,7 @@
   color: #FFFFFF;
   border: 1px solid rgba(255,255,255,0.2);
   padding: 18px 48px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 0.95rem;
   border-radius: 50px;

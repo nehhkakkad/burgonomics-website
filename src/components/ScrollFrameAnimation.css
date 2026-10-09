@@ -113,7 +113,7 @@
 }
 
 .hero-content-centered h1 {
-  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-family: var(--font-display);
   font-size: 5.5rem;
   font-weight: 400;
   text-transform: uppercase;
@@ -138,7 +138,7 @@
   background-color: #6d9349; /* Matching the green in the image */
   color: white;
   text-decoration: none;
-  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-family: var(--font-display);
   font-size: 1.1rem;
   font-weight: 400;
   letter-spacing: 0.1em;
@@ -159,7 +159,7 @@
   display: flex;
   align-items: center;
   gap: 24px;
-  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-family: var(--font-display);
   font-size: 0.9rem;
   font-weight: 400;
   letter-spacing: 0.15em;
@@ -274,7 +274,7 @@
 }
 
 .floating-text-block h2 {
-  font-family: 'MonstroSolid', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(2.5rem, 4vw, 3.8rem);
   margin-bottom: 12px;
   text-transform: uppercase;
@@ -284,7 +284,7 @@
 }
 
 .floating-text-block p {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-body);
   font-size: 1.1rem;
   color: #c9d2b5;
   margin-bottom: 24px;
@@ -298,7 +298,7 @@
   background-color: #0E4825; /* Brand green */
   color: white;
   text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-body);
   font-size: 1.1rem; /* Bigger font */
   font-weight: 700;
   letter-spacing: 2px;
