@@ -29,3 +29,7 @@ dist-ssr
 
 __pycache__/
 .firebase/
+
+# Vercel — local project link + deploy token, never commit
+.vercel/project.json
+.vercel-token
