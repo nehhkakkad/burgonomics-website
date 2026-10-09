@@ -45,12 +45,12 @@ if ($LASTEXITCODE -ne 0) { Write-Host "Build failed - not deploying." -Foregroun
 
 # Link this folder to THEIR project (overwrites local .vercel/project.json)
 Write-Host "==> Link to $Team/$Project" -ForegroundColor Cyan
-vercel link --yes --team $Team --project $Project --token $Token
+vercel link --yes --scope $Team --project $Project --token $Token --non-interactive
 if ($LASTEXITCODE -ne 0) { Write-Host "Link failed - check the team slug." -ForegroundColor Red; exit 1 }
 
 # Ship it
 Write-Host "==> Deploy to production" -ForegroundColor Cyan
-vercel deploy --prod --yes --token $Token --scope $Team --project $Project
+vercel deploy --prod --yes --token $Token --scope $Team --project $Project --non-interactive
 if ($LASTEXITCODE -ne 0) { Write-Host "Deploy failed." -ForegroundColor Red; exit 1 }
 
 Write-Host ""
