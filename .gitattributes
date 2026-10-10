@@ -1,0 +1,12 @@
+# Netlify parses these at deploy time - a trailing CR corrupts the last token
+# of each rule and silently breaks redirects/headers. Always store + checkout LF.
+public/_redirects text eol=lf
+public/_headers text eol=lf
+
+# Config files read by Linux build hosts
+netlify.toml text eol=lf
+*.toml text eol=lf
+
+# Shell-style scripts must stay LF or they fail to run on the build host
+*.sh text eol=lf
+*.ps1 text eol=crlf

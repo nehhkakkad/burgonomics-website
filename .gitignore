@@ -33,3 +33,18 @@ __pycache__/
 # Vercel: local project link + deploy token, never commit
 .vercel/
 .vercel-token
+
+# Vercel-era tooling and planning docs - retired now that the site ships to
+# Netlify from source (NETLIFY-SWAP-PLAN Phase 5). Kept on disk, never pushed.
+vercel.json
+deploy-vercel.ps1
+HANDOFF-GUIDE.md
+HANDOFF-GUIDE.html
+CLIENT-STEPS.md
+CLIENT-STEPS.html
+NETLIFY-SWAP-PLAN.html
+make-drop-package.ps1
+
+# Prebuilt deploy artifacts - Netlify builds from source, so these are stale
+dist-drop/
+burgonomics-drop.zip

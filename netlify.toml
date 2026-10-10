@@ -1,0 +1,20 @@
+# Netlify build configuration for burgonomics.com
+#
+# This file overrides anything set in the Netlify dashboard, so the site
+# deploys correctly no matter how the site was created (repo import, CLI, etc).
+# Node 22 is required: Vite 8 needs Node >= 22.12.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Routing and header rules are NOT declared here on purpose - they live in
+# public/_redirects and public/_headers, which Vite copies into dist/ on every
+# build. Keeping them there means they are versioned with the site source and
+# are identical to what the old static host served.
+#
+#   public/_redirects  www -> apex, legacy page -> new page, SPA fallback
+#   public/_headers    HSTS + immutable caching for /assets and /fonts
