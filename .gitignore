@@ -12,10 +12,16 @@ dist
 dist-ssr
 *.local
 
+# Environment files - the build reads no env vars today, and none may land here
+.env
+.env.*
+!.env.example
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
+*.code-workspace
 .DS_Store
 *.suo
 *.ntvs*
@@ -29,6 +35,9 @@ dist-ssr
 
 __pycache__/
 .firebase/
+
+# Netlify CLI local state (holds the site ID) - never commit
+.netlify/
 
 # Vercel: local project link + deploy token, never commit
 .vercel/
@@ -47,16 +56,4 @@ make-drop-package.ps1
 
 # Prebuilt deploy artifacts - Netlify builds from source, so these are stale
 dist-drop/
-burgonomics-drop.zip
-
-# Netlify CLI local state (site link, functions cache) - never commit
-.netlify/
-
-# Environment files - nothing env-specific may ever be committed.
-# (*.local already covers .env.local; this covers .env, .env.production, etc.)
-.env
-.env.*
-!.env.example
-
-# Any zip artifact (prebuilt deploy drops, asset archives)
 *.zip
