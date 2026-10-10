@@ -1,8 +1,29 @@
+# Response headers for burgonomics.com (Netlify reads this from the publish
+# dir, which netlify.toml sets to dist/; Vite copies public/ into it).
+# Netlify's default for static assets is already "public, max-age=0,
+# must-revalidate" in the browser, so only deliberate overrides live here.
+# Never add a Cache-Control under /* : it would apply to index.html too.
+
 /*
   Strict-Transport-Security: max-age=31536000
 
+# Vite fingerprints every file here (e.g. About-CH9HG4pd.js), so each URL
+# always means one exact byte sequence. Content-hashed => immutable is safe.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# NOT content-hashed: src/index.css points at the fixed URL
+# /fonts/MonstroSolid.woff2. immutable here would pin a replaced font for a
+# year, so cache hard but keep revalidation possible after one week.
 /fonts/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=604800
+
+# NOT content-hashed either: /frames/ezgif-frame-001.jpg, prefixed in
+# ScrollFrameAnimation.jsx. This exact set has gone stale once already on
+# another host, so force revalidation; a regenerated frame set must never pin.
+/frames/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+# /menu_images/* and /team_images/* are deliberately left on Netlify's
+# default (max-age=0, must-revalidate): they keep fixed names and are
+# replaced in place (team_images/dipen_new2.webp), so they are not immutable.

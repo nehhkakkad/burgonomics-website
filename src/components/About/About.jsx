@@ -22,7 +22,7 @@ const teamMembers = [
       name: "Yash Kakkad",
       role: "Legal & Finance",
       description: "Managing real estate, franchise frameworks, and partnership structures.",
-      image: "/team_images/dipen_new2.webp",
+      image: "/team_images/yash_kakkad_new2.webp",
       objectPosition: "center top"
   },
   {
@@ -37,7 +37,7 @@ const teamMembers = [
       name: "Dipen Bhimani",
       role: "HR & Operations",
       description: "Building a strong, unified team culture and managing staffing operations.",
-      image: "/team_images/yash_kakkad_new2.webp",
+      image: "/team_images/dipen_new2.webp",
       objectPosition: "center top"
   }
 ];

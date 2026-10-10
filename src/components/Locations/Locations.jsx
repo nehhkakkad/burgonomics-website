@@ -29,7 +29,10 @@ const Locations = () => {
       observer.disconnect();
       clearTimeout(timeout);
     };
-  }, []);
+    // Re-observe whenever the rendered section set changes: filtering/searching
+    // unmounts and remounts sections, and remounted nodes are never observed
+    // by the original observer — they would stay at opacity:0 forever.
+  }, [searchQuery, statusFilter, stateFilter, cityFilter]);
 
   const totalLocations = locations.length;
   const existingLocations = locations.filter(l => l.status === 'open' || l.status === 'new').length;
@@ -118,7 +121,7 @@ const Locations = () => {
           <p className="loc-subtitle">{totalLocations} locations. Growing fast.</p>
           
           <div className="loc-timeline-vertical">
-            {timelineData.map((data, index) => (
+            {timelineData.map((data) => (
               <div key={data.year} className="timeline-v-item">
                 <div className="timeline-v-year">
                   <span>{data.year}</span>

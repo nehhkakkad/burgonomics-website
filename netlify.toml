@@ -2,13 +2,23 @@
 #
 # This file overrides anything set in the Netlify dashboard, so the site
 # deploys correctly no matter how the site was created (repo import, CLI, etc).
-# Node 22 is required: Vite 8 needs Node >= 22.12.
+#
+# NOTE: netlify.toml only overrides the settings it actually declares. `base`
+# is declared explicitly so a leftover "base directory" value in the Netlify
+# dashboard (from however the site was first created) can never point the build
+# at a subfolder that has no package.json.
 
 [build]
+  base = "."
   command = "npm run build"
   publish = "dist"
 
 [build.environment]
+  # Vite 8 / @vitejs/plugin-react 6 engines: node ^20.19.0 || >=22.12.0.
+  # Netlify resolves a bare major to the LATEST installed 22.x, which is
+  # well above 22.12 (22.x has been past 22.12 since Nov 2024), and any
+  # released version of Node is installable via nvm on the build image.
+  # 22 is also an LTS line still receiving security fixes in 2026.
   NODE_VERSION = "22"
 
 # Routing and header rules are NOT declared here on purpose - they live in

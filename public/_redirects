@@ -1,11 +1,25 @@
-# Force www to apex domain
+# Force www to apex domain. 301! = forced, so no existing file can shadow it.
 http://www.burgonomics.com/*    http://burgonomics.com/:splat    301!
 https://www.burgonomics.com/*   https://burgonomics.com/:splat   301!
 
-# Old site pages -> new pages (keeps existing links and Google results working)
-/team       /about   301
-/team.html  /about   301
-/menu.html  /menu    301
+# Old site pages -> new pages (keeps existing links and Google results working).
+# Order matters: Netlify applies the FIRST matching rule, so these must stay
+# above the SPA fallback.
+/team        /about   301
+/team.html   /about   301
+/menu.html   /menu    301
 
-# SPA fallback: any other path serves the React app
-/*          /index.html   200
+# Legacy .html pages this project's own static build published: its nav linked
+# to ./about.html, ./locations.html and ./franchise.html (see commit 555bc39,
+# the pre-React site whose ./menu.html is still live). Safe if the old host
+# never served them - the visitor still lands on the matching new page.
+/about.html      /about       301
+/locations.html  /locations   301
+/franchise.html  /franchise   301
+
+# SPA fallback for the React routes (/, /menu, /locations, /franchise, /about)
+# and unknown paths. Deliberately NOT forced: Netlify serves an existing static
+# file before applying a non-forced rule (shadowing), so /assets/*, /fonts/*,
+# /frames/*, /menu_images/*, /team_images/* and /favicon.svg still reach the
+# filesystem instead of this rewrite.
+/*               /index.html  200

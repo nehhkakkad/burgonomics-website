@@ -48,3 +48,15 @@ make-drop-package.ps1
 # Prebuilt deploy artifacts - Netlify builds from source, so these are stale
 dist-drop/
 burgonomics-drop.zip
+
+# Netlify CLI local state (site link, functions cache) - never commit
+.netlify/
+
+# Environment files - nothing env-specific may ever be committed.
+# (*.local already covers .env.local; this covers .env, .env.production, etc.)
+.env
+.env.*
+!.env.example
+
+# Any zip artifact (prebuilt deploy drops, asset archives)
+*.zip

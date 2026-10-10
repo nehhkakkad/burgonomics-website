@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import Header from './components/Header';
@@ -31,14 +31,13 @@ function App() {
     
     window.lenis = lenis;
 
-    function raf(time) {
+    let rafId = requestAnimationFrame(function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
+    });
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
       delete window.lenis;
     };
@@ -63,6 +62,9 @@ function App() {
             <Route path="/franchise" element={<Franchise />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/about" element={<About />} />
+            {/* Unknown paths (deep links, legacy URLs that Netlify does not
+                rewrite) fall back to home instead of a blank page. */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
       </main>

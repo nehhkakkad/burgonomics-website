@@ -32,7 +32,11 @@ const Franchise = () => {
       observer.disconnect();
       clearTimeout(timeout);
     };
-  }, []);
+    // The success screen and the reset form are different DOM trees, so the
+    // observer must re-attach — otherwise remounted .reveal blocks never get
+    // .active and stay at opacity:0 whenever a route CSS that defines .reveal
+    // (Menu/About) has already been loaded this session.
+  }, [isSubmitted]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,24 +47,41 @@ const Franchise = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
+    const formEl = form.current;
+    if (!formEl) {
+      // Defensive guard: never hand a missing ref to EmailJS.
+      console.error('EmailJS Error: form ref is not attached.');
+      alert("Something went wrong while sending your request. Please try again.");
+      return;
+    }
+
     setIsSubmitting(true);
 
-    // Replaced with actual EmailJS credentials
+    // Public EmailJS credentials — safe to ship in the client bundle.
     const serviceId = 'service_qyj11hg';
     const templateId = 'template_hoo4ikc';
     const publicKey = 'j1jccvJyT0vc4WC-s';
 
-    emailjs.sendForm(serviceId, templateId, form.current, publicKey)
-      .then((response) => {
-        setIsSubmitted(true);
-        setIsSubmitting(false);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      })
-      .catch((error) => {
-        console.error('EmailJS Error:', error);
-        setIsSubmitting(false);
-        alert("Something went wrong while sending your request. Please try again.");
-      });
+    const fail = (error) => {
+      console.error('EmailJS Error:', error);
+      setIsSubmitting(false);
+      alert("Something went wrong while sending your request. Please try again.");
+    };
+
+    try {
+      emailjs.sendForm(serviceId, templateId, formEl, publicKey)
+        .then(() => {
+          setIsSubmitted(true);
+          setIsSubmitting(false);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        })
+        .catch(fail);
+    } catch (error) {
+      // sendForm can throw synchronously (SDK misconfiguration, blocked init).
+      fail(error);
+    }
   };
 
   if (isSubmitted) {
