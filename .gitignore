@@ -57,3 +57,7 @@ make-drop-package.ps1
 # Prebuilt deploy artifacts - Netlify builds from source, so these are stale
 dist-drop/
 *.zip
+
+# Netlify deploy tooling - local to this machine (needs this machine's netlify CLI login); never pushed
+netlify-deploy.ps1
+netlify-ticket-waiter.ps1
