@@ -66,12 +66,26 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 24px;
 }
 
 .footer-copyright {
   color: #888888; /* Clean grey */
   font-size: 0.85rem;
   letter-spacing: 0.02em;
+}
+
+.footer-legal {
+  color: #888888; /* Matches the copyright line */
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  text-align: right;
+  min-width: 0; /* Allow long legal text to wrap inside the flex row */
+}
+
+.footer-gstin {
+  white-space: nowrap; /* Keep the GSTIN on one line when wrapping */
 }
 
 .powered-by {
@@ -94,6 +108,9 @@
     flex-direction: column;
     gap: 20px;
     align-items: flex-start;
+  }
+  .footer-legal {
+    text-align: left;
   }
 }
 

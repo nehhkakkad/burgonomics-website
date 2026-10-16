@@ -27,6 +27,10 @@ const Footer = () => {
         <div className="footer-copyright">
           © {currentYear} Burgonomics. All rights reserved. | <span className="powered-by">Powered by Burgonomics</span>
         </div>
+        <div className="footer-legal">
+          Burgonomics is owned and operated by PANCHTATVA FOODS. |{' '}
+          <span className="footer-gstin">GSTIN: 24ABHFP6677N1ZG</span>
+        </div>
       </div>
     </footer>
   );
