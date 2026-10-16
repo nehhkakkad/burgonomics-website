@@ -105,7 +105,9 @@ const Menu = () => {
 
   const filteredItems = getFilteredMenu();
 
-  const regularMenuData = menuData.filter(item => !favourites.includes(item.name));
+  // Sections list every item (favourites included) so no list is incomplete;
+  // the favourites row above is a curated highlight, not a replacement.
+  const regularMenuData = menuData;
 
   return (
     <div className="menu-page">
@@ -155,6 +157,7 @@ const Menu = () => {
                       <div className="product-info">
                         <h3 className="product-name">{item.name}</h3>
                         <p className="product-desc">Steam: ₹{item.steamPrice} / Fried: ₹{item.friedPrice}</p>
+                        {item.description && <p className="product-desc">{item.description}</p>}
                       </div>
                       {item.image && <img src={item.image} alt={item.name} className="product-image-sleek" loading="lazy" decoding="async" />}
                    </div>
@@ -163,6 +166,7 @@ const Menu = () => {
                       <div className="product-info">
                         <h3 className="product-name">{item.name}</h3>
                         <p className="product-desc">Fried: ₹{item.friedPrice}</p>
+                        {item.description && <p className="product-desc">{item.description}</p>}
                       </div>
                       {item.image && <img src={item.image} alt={item.name} className="product-image-sleek" loading="lazy" decoding="async" />}
                    </div>
@@ -194,7 +198,10 @@ const Menu = () => {
                         {item.image && <img src={item.image} alt={item.name} className="featured-card-img" loading="lazy" decoding="async" onError={(e) => e.target.style.display='none'} />}
                       </div>
                       <div className="featured-card-content">
-                        <div className="featured-card-title">{item.name}</div>
+                        <div className="featured-card-text">
+                          <div className="featured-card-title">{item.name}</div>
+                          {item.description && <div className="featured-card-desc">{item.description}</div>}
+                        </div>
                         <div className="featured-card-price">₹{item.price || item.friedPrice}</div>
                       </div>
                     </div>
@@ -316,7 +323,10 @@ const Menu = () => {
                   <tbody>
                     {regularMenuData.filter(i => i.category === 'Momos').map(item => (
                       <tr key={item.name}>
-                        <td>{item.name}</td>
+                        <td>
+                          {item.name}
+                          {item.description && <div className="momos-desc">{item.description}</div>}
+                        </td>
                         <td>{item.steamPrice ? `₹${item.steamPrice}` : '—'}</td>
                         <td>₹{item.friedPrice}</td>
                       </tr>

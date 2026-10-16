@@ -60,7 +60,9 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding: 16px 0;
-  max-width: 1400px;
+  /* Match the content column (1400px cap + 5% inset) so the pill row
+     never extends past the page layout edges. */
+  max-width: min(1260px, 90%);
   margin: 0 auto;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
@@ -309,6 +311,18 @@
   color: #1e1e1e;
 }
 
+.featured-card-text {
+  flex: 1;
+}
+
+.featured-card-desc {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-top: 6px;
+}
+
 .featured-card-price {
   font-weight: 600;
   font-size: 1.1rem;
@@ -389,6 +403,13 @@
 
 .momos-table td:first-child {
   color: #1e1e1e;
+}
+
+.momos-desc {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 400;
+  margin-top: 4px;
 }
 
 /* Empty State */
