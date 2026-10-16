@@ -196,7 +196,7 @@ export const locations = [
         openingDate: "September 2026",
         city: "Ahmedabad",
         state: "Gujarat",
-        status: "upcoming",
+        status: "new",
         coordinates: { lat: 23.0300, lng: 72.5700 }
     },
     {
@@ -226,7 +226,7 @@ export const locations = [
         openingDate: "October 2026",
         city: "Ahmedabad",
         state: "Gujarat",
-        status: "upcoming",
+        status: "new",
         coordinates: { lat: 23.0853, lng: 72.5592 }
     },
     {
