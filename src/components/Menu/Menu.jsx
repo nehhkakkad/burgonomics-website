@@ -105,8 +105,8 @@ const Menu = () => {
 
   const filteredItems = getFilteredMenu();
 
-  // Sections list every item (favourites included) so no list is incomplete;
-  // the favourites row above is a curated highlight, not a replacement.
+  // Sections list every item (favourites included, with photos) so the full
+  // menu is never incomplete; the favourites row above is only a highlight.
   const regularMenuData = menuData;
 
   return (
@@ -217,14 +217,14 @@ const Menu = () => {
               <h3 className="subsection-title reveal">Big Bang Burgers</h3>
               <div className="grid-2-col">
                 {regularMenuData.filter(i => i.subcategory === 'Big Bang Burgers').map(item => (
-                  <MenuItem key={item.name} item={item} hideImage={true} />
+                  <MenuItem key={item.name} item={item} />
                 ))}
               </div>
 
               <h3 className="subsection-title reveal">Classic Burgers</h3>
               <div className="grid-2-col">
                 {regularMenuData.filter(i => i.subcategory === 'Classic Burgers').map(item => (
-                  <MenuItem key={item.name} item={item} hideImage={true} />
+                  <MenuItem key={item.name} item={item} />
                 ))}
               </div>
             </section>
@@ -283,7 +283,7 @@ const Menu = () => {
               <h2 className="menu-section-title">Sides</h2>
               <div className="grid-2-col">
                 {regularMenuData.filter(i => i.category === 'Sides').map(item => (
-                  <MenuItem key={item.name} item={item} hideImage={true} />
+                  <MenuItem key={item.name} item={item} />
                 ))}
               </div>
             </section>
@@ -303,7 +303,7 @@ const Menu = () => {
               <h2 className="menu-section-title">Pasta</h2>
               <div className="grid-2-col">
                 {regularMenuData.filter(i => i.category === 'Pasta').map(item => (
-                  <MenuItem key={item.name} item={item} hideImage={true} />
+                  <MenuItem key={item.name} item={item} />
                 ))}
               </div>
             </section>
@@ -361,7 +361,7 @@ const Menu = () => {
               <h2 className="menu-section-title">Cold Coffee</h2>
               <div className="grid-2-col">
                 {regularMenuData.filter(i => i.category === 'Cold Coffee').map(item => (
-                  <MenuItem key={item.name} item={item} hideImage={true} />
+                  <MenuItem key={item.name} item={item} />
                 ))}
               </div>
             </section>
