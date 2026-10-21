@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import Header from './components/Header';
@@ -12,6 +12,7 @@ const Menu = lazy(() => import('./components/Menu/Menu'));
 const Locations = lazy(() => import('./components/Locations/Locations'));
 const Franchise = lazy(() => import('./components/Franchise/Franchise'));
 const About = lazy(() => import('./components/About/About'));
+const NotFound = lazy(() => import('./components/NotFound/NotFound'));
 
 function App() {
   const { pathname } = useLocation();
@@ -62,9 +63,9 @@ function App() {
             <Route path="/franchise" element={<Franchise />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/about" element={<About />} />
-            {/* Unknown paths (deep links, legacy URLs that Netlify does not
-                rewrite) fall back to home instead of a blank page. */}
-            <Route path="*" element={<Navigate to="/" replace />} />
+            {/* Unknown paths (deep links, stray URLs) get a proper branded
+                404 screen instead of silently landing on home. */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </main>
