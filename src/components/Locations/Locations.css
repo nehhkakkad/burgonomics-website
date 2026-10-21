@@ -265,9 +265,16 @@
 .geo-filters {
   display: flex;
   gap: 16px;
+  /* wrap: on narrow phones two selects with ~150px intrinsic min-content
+     (the widest option text) can't share a row -> they stack instead of
+     pannning the page sideways. */
+  flex-wrap: wrap;
 }
 
 .loc-select {
+  flex: 1 1 150px;
+  /* let flex shrink a select below the widest option's intrinsic width */
+  min-width: 0;
   padding: 10px 20px;
   border: 1px solid rgba(13, 68, 41, 0.2);
   border-radius: 40px;
@@ -306,7 +313,10 @@
 
 .loc-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  /* min(320px, 100%) keeps the track from forcing a fixed 320px minimum:
+     on tiny phones (<360px viewport) it collapses to the container width
+     instead of spilling ~20px past the screen edge. */
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
   gap: 32px;
 }
 
@@ -538,7 +548,8 @@
     width: 100%;
   }
   .loc-select {
-    flex: 1;
+    flex: 1 1 150px;
+    min-width: 0;
   }
   .section-title {
     font-size: 2.5rem;
