@@ -5,25 +5,25 @@ import './About.css';
 const teamMembers = [
   {
       number: "01",
+      name: "Yash Kakkad",
+      role: "Legal & Finance",
+      description: "Managing real estate, franchise frameworks, and partnership structures.",
+      image: "/team_images/yash_kakkad_new2.webp",
+      objectPosition: "center top"
+  },
+  {
+      number: "02",
       name: "Nehh Kakkad",
       role: "Marketing & Tech",
       description: "Leading brand strategy, digital presence, and marketing innovation.",
       image: "/team_images/nehh kakkad.webp"
   },
   {
-      number: "02",
+      number: "03",
       name: "Devarshi Malviya",
       role: "Sales & Expansion",
       description: "15+ years of culinary expertise and the original researcher of the brand model.",
       image: "/team_images/devarshi malvia.webp"
-  },
-  {
-      number: "03",
-      name: "Yash Kakkad",
-      role: "Legal & Finance",
-      description: "Managing real estate, franchise frameworks, and partnership structures.",
-      image: "/team_images/yash_kakkad_new2.webp",
-      objectPosition: "center top"
   },
   {
       number: "04",
