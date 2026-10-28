@@ -230,14 +230,14 @@ export const locations = [
         coordinates: { lat: 23.0853, lng: 72.5592 }
     },
     {
-        id: "pune",
-        name: "Pune",
-        address: "Pune",
+        id: "hinjawadi-phase-2",
+        name: "Hinjawadi Phase 2",
+        address: "VJ Happiness Street, Hinjawadi Phase 2 – 411057",
         openingDate: "October 2026",
         city: "Pune",
         state: "Maharashtra",
         status: "upcoming",
-        coordinates: { lat: 18.5204, lng: 73.8567 }
+        coordinates: { lat: 18.5913, lng: 73.7389 }
     },
     {
         id: "patan",
@@ -248,5 +248,45 @@ export const locations = [
         state: "Gujarat",
         status: "upcoming",
         coordinates: { lat: 23.8493, lng: 72.1266 }
+    },
+    {
+        id: "tin-batti",
+        name: "Tin Batti",
+        address: "Seaface Road, near Taxi Stand, Tin Batti – 396210",
+        openingDate: "TBA",
+        city: "Daman",
+        state: "Dadra and Nagar Haveli and Daman and Diu",
+        status: "upcoming",
+        coordinates: { lat: 20.4126, lng: 72.8330 }
+    },
+    {
+        id: "chandra-park",
+        name: "Chandra Park",
+        address: "Chandra Park 2 Corner, near Big Bazar, opposite Reliance Mall, 150 Feet Ring Road – 360005",
+        openingDate: "TBA",
+        city: "Rajkot",
+        state: "Gujarat",
+        status: "upcoming",
+        coordinates: { lat: 22.2746, lng: 70.7873 }
+    },
+    {
+        id: "ghatlodiya",
+        name: "Ghatlodiya",
+        address: "S One Commercial, Maharana Pratap Road, Chanakyapuri – 380061",
+        openingDate: "TBA",
+        city: "Ahmedabad",
+        state: "Gujarat",
+        status: "upcoming",
+        coordinates: { lat: 23.0500, lng: 72.5250 }
+    },
+    {
+        id: "mehsana",
+        name: "Mehsana",
+        address: "Radhanpur Road, opposite Ravi Shopping, near Dwarkapuri Flats – 384002",
+        openingDate: "TBA",
+        city: "Mehsana",
+        state: "Gujarat",
+        status: "upcoming",
+        coordinates: { lat: 23.6000, lng: 72.3800 }
     }
 ];
