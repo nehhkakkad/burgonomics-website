@@ -236,7 +236,7 @@ export const locations = [
         openingDate: "October 2026",
         city: "Pune",
         state: "Maharashtra",
-        status: "upcoming",
+        status: "open",
         coordinates: { lat: 18.5913, lng: 73.7389 }
     },
     {
