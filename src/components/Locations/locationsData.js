@@ -200,26 +200,6 @@ export const locations = [
         coordinates: { lat: 23.0300, lng: 72.5700 }
     },
     {
-        id: "gor-dhod-road",
-        name: "Gor Dhod Road",
-        address: "Gor Dhod Road",
-        openingDate: "October 2026",
-        city: "Surat",
-        state: "Gujarat",
-        status: "upcoming",
-        coordinates: { lat: 21.1741, lng: 72.8016 }
-    },
-    {
-        id: "vallabh-vidhyanagar",
-        name: "Vallabh Vidhyanagar",
-        address: "Vallabh Vidhyanagar – 388120",
-        openingDate: "October 2026",
-        city: "Anand",
-        state: "Gujarat",
-        status: "upcoming",
-        coordinates: { lat: 22.5560, lng: 72.9239 }
-    },
-    {
         id: "new-ranip",
         name: "New Ranip",
         address: "New Ranip",
@@ -228,6 +208,46 @@ export const locations = [
         state: "Gujarat",
         status: "new",
         coordinates: { lat: 23.0853, lng: 72.5592 }
+    },
+    {
+        id: "vallabh-vidhyanagar",
+        name: "Vallabh Vidhyanagar",
+        address: "Vallabh Vidhyanagar – 388120",
+        openingDate: "November 2026",
+        city: "Anand",
+        state: "Gujarat",
+        status: "new",
+        coordinates: { lat: 22.5560, lng: 72.9239 }
+    },
+    {
+        id: "ghatlodiya",
+        name: "Ghatlodiya",
+        address: "S One Commercial, Maharana Pratap Road, Chanakyapuri – 380061",
+        openingDate: "November 2026",
+        city: "Ahmedabad",
+        state: "Gujarat",
+        status: "new",
+        coordinates: { lat: 23.0500, lng: 72.5250 }
+    },
+    {
+        id: "mehsana",
+        name: "Mehsana",
+        address: "Radhanpur Road, opposite Ravi Shopping, near Dwarkapuri Flats – 384002",
+        openingDate: "November 2026",
+        city: "Mehsana",
+        state: "Gujarat",
+        status: "new",
+        coordinates: { lat: 23.6000, lng: 72.3800 }
+    },
+    {
+        id: "chandra-park",
+        name: "Chandra Park",
+        address: "Chandra Park 2 Corner, near Big Bazar, opposite Reliance Mall, 150 Feet Ring Road – 360005",
+        openingDate: "November 2026",
+        city: "Rajkot",
+        state: "Gujarat",
+        status: "new",
+        coordinates: { lat: 22.2746, lng: 70.7873 }
     },
     {
         id: "hinjawadi-phase-2",
@@ -240,16 +260,6 @@ export const locations = [
         coordinates: { lat: 18.5913, lng: 73.7389 }
     },
     {
-        id: "patan",
-        name: "Patan",
-        address: "Patan",
-        openingDate: "October 2026",
-        city: "Patan",
-        state: "Gujarat",
-        status: "upcoming",
-        coordinates: { lat: 23.8493, lng: 72.1266 }
-    },
-    {
         id: "tin-batti",
         name: "Tin Batti",
         address: "Seaface Road, near Taxi Stand, Tin Batti – 396210",
@@ -260,33 +270,13 @@ export const locations = [
         coordinates: { lat: 20.4126, lng: 72.8330 }
     },
     {
-        id: "chandra-park",
-        name: "Chandra Park",
-        address: "Chandra Park 2 Corner, near Big Bazar, opposite Reliance Mall, 150 Feet Ring Road – 360005",
+        id: "joggers-park-jamnagar",
+        name: "Joggers Park",
+        address: "Joggers Park, Jamnagar – 361001",
         openingDate: "TBA",
-        city: "Rajkot",
+        city: "Jamnagar",
         state: "Gujarat",
         status: "upcoming",
-        coordinates: { lat: 22.2746, lng: 70.7873 }
-    },
-    {
-        id: "ghatlodiya",
-        name: "Ghatlodiya",
-        address: "S One Commercial, Maharana Pratap Road, Chanakyapuri – 380061",
-        openingDate: "TBA",
-        city: "Ahmedabad",
-        state: "Gujarat",
-        status: "upcoming",
-        coordinates: { lat: 23.0500, lng: 72.5250 }
-    },
-    {
-        id: "mehsana",
-        name: "Mehsana",
-        address: "Radhanpur Road, opposite Ravi Shopping, near Dwarkapuri Flats – 384002",
-        openingDate: "TBA",
-        city: "Mehsana",
-        state: "Gujarat",
-        status: "upcoming",
-        coordinates: { lat: 23.6000, lng: 72.3800 }
+        coordinates: { lat: 22.4710, lng: 70.0573 }
     }
 ];
